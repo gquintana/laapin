@@ -12,7 +12,7 @@ public class Lapin extends Lutin {
     public Action derniereAction;
     public int fatigue;
     public final Joueur joueur;
-    public int score;
+    private int score;
 
     public Lapin(Coord coord, String nom, Color couleur, Action derniereAction, int fatigue, Joueur joueur) {
         super(coord);
@@ -38,5 +38,9 @@ public class Lapin extends Lutin {
     @Override
     public String toString() {
         return "Lapin " + nom + " " + coord;
+    }
+
+    public int score() {
+        return score;
     }
 }

@@ -15,7 +15,7 @@ public class GrillePanel extends JPanel {
     private final Grille grille;
 
     private final BufferedImage imageFond;
-    private final BufferedImage imageLapin;
+    final BufferedImage imageLapin;
     private final BufferedImage imageCarotte;
 
 

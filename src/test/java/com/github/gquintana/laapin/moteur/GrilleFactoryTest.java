@@ -3,8 +3,10 @@ package com.github.gquintana.laapin.moteur;
 import com.github.gquintana.laapin.Configuration;
 import org.junit.Test;
 
+import java.util.Random;
+
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class GrilleFactoryTest {
 
@@ -13,7 +15,7 @@ public class GrilleFactoryTest {
         // Given
         Configuration configuration = new Configuration();
         configuration.load(getClass().getResourceAsStream("laapin-normal.properties"));
-        GrilleFactory grilleFactory = new GrilleFactory(configuration);
+        GrilleFactory grilleFactory = new GrilleFactory(configuration, new Random());
         // When
         Grille grille = grilleFactory.creerGrille();
         // Then
@@ -26,7 +28,7 @@ public class GrilleFactoryTest {
         // Given
         Configuration configuration = new Configuration();
         configuration.load(getClass().getResourceAsStream("laapin-saturee.properties"));
-        GrilleFactory grilleFactory = new GrilleFactory(configuration);
+        GrilleFactory grilleFactory = new GrilleFactory(configuration, new Random());
         // When
         Grille grille = grilleFactory.creerGrille();
         // Then

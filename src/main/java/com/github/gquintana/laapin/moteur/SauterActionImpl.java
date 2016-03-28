@@ -3,27 +3,25 @@ package com.github.gquintana.laapin.moteur;
 import com.github.gquintana.laapin.joueur.Action;
 import com.github.gquintana.laapin.joueur.Coord;
 
-public class SauterCommande implements Commande {
+public class SauterActionImpl implements ActionImpl {
     @Override
-    public void executer(Lapin lapin, Grille grille, Action action) {
+    public ResultatAction executer(Lapin lapin, Grille grille, Action action) {
         Coord coordCible = action.direction.calculer(lapin.coord, 1);
         Coord coordCible2 = action.direction.calculer(lapin.coord, 2);
         Lapin lapinCible = grille.getLapin(coordCible);
         if (lapinCible == null) {
-            grille.setDernierMessage("???");
-            return;
+            return new ResultatAction(action, "???");
         }
         if (!grille.contient(coordCible2)) {
-            grille.setDernierMessage("Pas par là");
-            return;
+            return new ResultatAction(action, "Pas par là");
         }
         Carotte carotte = grille.getCarotte(coordCible2);
-        if (carotte == null) {
-            grille.setDernierMessage("Et hop");
-        } else {
-            grille.setDernierMessage("Miam");
-            lapin.manger(carotte);
-        }
         lapin.coord = coordCible2;
+        if (carotte == null) {
+            return new ResultatAction(action, "Et hop");
+        } else {
+            lapin.manger(carotte);
+            return new ResultatAction(action, "Miam");
+        }
     }
 }

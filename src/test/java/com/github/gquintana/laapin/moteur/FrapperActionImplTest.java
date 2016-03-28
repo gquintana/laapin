@@ -1,21 +1,21 @@
 package com.github.gquintana.laapin.moteur;
 
-import com.github.gquintana.laapin.joueur.*;
-import org.hamcrest.CoreMatchers;
+import com.github.gquintana.laapin.joueur.Action;
+import com.github.gquintana.laapin.joueur.Coord;
+import com.github.gquintana.laapin.joueur.Direction;
+import com.github.gquintana.laapin.joueur.TypeAction;
 import org.junit.Test;
 
-import java.util.List;
-
+import static com.github.gquintana.laapin.moteur.Lutins.lapin;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.junit.Assert.assertThat;
-import static com.github.gquintana.laapin.moteur.Lutins.*;
 
-public class FrapperCommandeTest {
-    private final FrapperCommande commande = new FrapperCommande();
+public class FrapperActionImplTest {
+    private final FrapperActionImpl commande = new FrapperActionImpl();
 
     @Test
     public void testExecuter_Raté() throws Exception {

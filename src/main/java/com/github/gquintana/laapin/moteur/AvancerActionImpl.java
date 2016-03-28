@@ -3,27 +3,25 @@ package com.github.gquintana.laapin.moteur;
 import com.github.gquintana.laapin.joueur.Action;
 import com.github.gquintana.laapin.joueur.Coord;
 
-public class AvancerCommande implements Commande {
+public class AvancerActionImpl implements ActionImpl {
     @Override
-    public void executer(Lapin lapin, Grille grille, Action action) {
+    public ResultatAction executer(Lapin lapin, Grille grille, Action action) {
         Coord coordCible = action.direction.calculer(lapin.coord, 1);
         if (!grille.contient(coordCible)) {
-            grille.setDernierMessage("Pas par là");
-            return;
+            return new ResultatAction(action, "Pas par là");
         }
         Lapin autreLapin = grille.getLapin(coordCible);
         if (autreLapin != null) {
-            grille.setDernierMessage("Occupé");
-            return;
+            return new ResultatAction(action, "Occupé");
         }
         Carotte carotte = grille.getCarotte(coordCible);
         lapin.coord = coordCible;
         if (carotte != null) {
-            grille.setDernierMessage("Miam");
+            ResultatAction resultatAction = new ResultatAction(action, "Miam");
             lapin.manger(carotte);
             grille.supprimerCarotte(carotte);
-            return;
+            return resultatAction;
         }
-        grille.setDernierMessage("En avant");
+        return new ResultatAction(action, "En avant");
     }
 }

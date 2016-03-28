@@ -12,8 +12,8 @@ import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-public class SeReposerCommandeTest {
-    private final SeReposerCommande commande = new SeReposerCommande();
+public class SeReposerActionImplTest {
+    private final SeReposerActionImpl commande = new SeReposerActionImpl();
 
     @Test
     public void testExecuter_Fatigue() {

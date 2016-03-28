@@ -74,4 +74,9 @@ public class Configuration {
             throw new IllegalArgumentException("Couleur invalide " + stringValue);
         }
     }
+
+    public boolean getBoolean(String name, boolean defaultValue) {
+        String stringValue = properties.getProperty(name);
+        return stringValue == null ? defaultValue : Boolean.parseBoolean(stringValue);
+    }
 }

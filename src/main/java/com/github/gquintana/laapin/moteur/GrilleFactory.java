@@ -9,13 +9,12 @@ import java.util.*;
 import java.util.List;
 
 public class GrilleFactory {
-    public final Random random;
     public final Configuration configuration;
+    public final Random random;
 
-    public GrilleFactory(Configuration configuration) {
-        int randomSeed = configuration.getInt("random", -1);
-        this.random = randomSeed < 0 ? new Random() : new Random(randomSeed);
+    public GrilleFactory(Configuration configuration, Random random) {
         this.configuration = configuration;
+        this.random = random;
     }
 
     private Coord random(Coord taille) {

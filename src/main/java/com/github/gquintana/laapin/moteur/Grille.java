@@ -1,30 +1,20 @@
 package com.github.gquintana.laapin.moteur;
 
-import com.github.gquintana.laapin.joueur.Action;
 import com.github.gquintana.laapin.joueur.Coord;
-import com.github.gquintana.laapin.joueur.TypeAction;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Grille {
     public final Coord taille;
     public final List<Lapin> lapins;
     public final List<Carotte> carottes;
-    public Lapin dernierLapin;
-    public String dernierMessage;
-    private final Map<TypeAction, Commande> commandes;
 
     public Grille(Coord taille, List<Lapin> lapins, List<Carotte> carottes) {
         this.taille = taille;
         this.lapins = new ArrayList<>(lapins);
         this.carottes = new ArrayList<>(carottes);
-        Map<TypeAction, Commande> lCommandes = new HashMap<>();
-        lCommandes.put(TypeAction.AVANCER, new AvancerCommande());
-        lCommandes.put(TypeAction.FRAPPER, new FrapperCommande());
-        lCommandes.put(TypeAction.SAUTER, new SauterCommande());
-        lCommandes.put(TypeAction.SE_REPOSER, new SeReposerCommande());
-        commandes = Collections.unmodifiableMap(lCommandes);
     }
 
     public boolean contient(Coord coord) {
@@ -37,31 +27,6 @@ public class Grille {
 
     public Carotte getCarotte(Coord coord) {
         return carottes.stream().filter(l -> l.coord.equals(coord)).findFirst().orElse(null);
-    }
-
-    public void reflechir(Lapin leLapin) {
-        Action action = null;
-        boolean seReposer = leLapin.fatigue > 0;
-        dernierMessage = null;
-        if (!seReposer) {
-            try {
-                com.github.gquintana.laapin.joueur.Grille grillePhoto = photographier();
-                com.github.gquintana.laapin.joueur.Lapin leLapinPhoto = leLapin.photographier();
-                System.out.println(leLapin + " reflechir");
-                action = leLapin.joueur.reflechir(leLapinPhoto, grillePhoto);
-            } catch (Exception e) {
-                e.printStackTrace();
-                setDernierMessage(e.getMessage());
-                seReposer = true;
-            }
-        }
-        if (seReposer || action == null) {
-            action = new Action(TypeAction.SE_REPOSER, null);
-        }
-        Commande commande = commandes.get(action.type);
-        commande.executer(leLapin, this, action);
-        System.out.println(String.format("Lapin %s: %s %s %s", leLapin.nom, action.type, action.direction, dernierMessage));
-        leLapin.derniereAction = action;
     }
 
     public com.github.gquintana.laapin.joueur.Grille photographier() {
@@ -78,7 +43,4 @@ public class Grille {
         carottes.remove(carotte);
     }
 
-    public void setDernierMessage(String dernierMessage) {
-        this.dernierMessage = dernierMessage;
-    }
 }
