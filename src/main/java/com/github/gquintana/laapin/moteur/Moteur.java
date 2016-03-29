@@ -49,7 +49,7 @@ public class Moteur {
     }
 
     private void initLapinIterator() {
-        List<Lapin> lapinList = new ArrayList<>(grille.lapins);
+        List<Lapin> lapinList = new ArrayList<>(grille.lapins());
         if (configuration.getBoolean("lapins.shuffle", true)) {
             Collections.shuffle(lapinList, random);
         }
@@ -93,7 +93,7 @@ public class Moteur {
         System.out.println(String.format("Lapin %s: %s %s %s", leLapin.nom, action.type, action.direction, resultatAction.message));
         leLapin.derniereAction = action;
         listener.onAgir(grille, leLapin, resultatAction);
-        if (grille.carottes.isEmpty()) {
+        if (!grille.lutinStream(Carotte.class).findAny().isPresent()) {
             arreter();
             listener.onArreter(grille);
         }
@@ -104,7 +104,7 @@ public class Moteur {
         if (scheduledFuture != null && !scheduledFuture.isCancelled()) {
             scheduledFuture.cancel(false);
         }
-        grille.lapins.stream().sorted(Comparator.comparingInt(Lapin::score).reversed())
+        grille.lutinStream(Lapin.class).sorted(Comparator.comparingInt(Lapin::score).reversed())
                 .forEach(l -> System.out.println(l + " " + l.score()));
     }
 

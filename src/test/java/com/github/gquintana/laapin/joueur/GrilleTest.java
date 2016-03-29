@@ -1,6 +1,5 @@
 package com.github.gquintana.laapin.joueur;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.stream.Collectors;
@@ -22,8 +21,8 @@ public class GrilleTest {
      * 01234
      */
     private final Grille grille = new Grille(new Coord(5, 5),
-            asList(moi, lapin("Moche", 2, 1), lapin("Méchant", 0, 4)),
-            asList(carotte(4, 0), carotte(2, 3)));
+            asList(moi, lapin("Moche", 2, 1), lapin("Méchant", 0, 4),
+                    carotte(4, 0), carotte(2, 3)));
 
     @Test
     public void testCarotte() {

@@ -19,8 +19,8 @@ public class GrilleFactoryTest {
         // When
         Grille grille = grilleFactory.creerGrille();
         // Then
-        assertThat(grille.carottes.size(), is(5));
-        assertThat(grille.lapins.size(), is(2));
+        assertThat(grille.lutinStream(Carotte.class).count(), is(5));
+        assertThat(grille.lapins().size(), is(2));
     }
 
     @Test(expected = IllegalArgumentException.class)

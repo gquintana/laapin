@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import static com.github.gquintana.laapin.moteur.Lutins.lapin;
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -20,7 +19,7 @@ public class SauterActionImplTest {
     public void testExecuter_Rate() throws Exception {
         // Given
         Lapin lapin = lapin("Test", 2, 3);
-        Grille grille = new Grille(new Coord(5, 5), singletonList(lapin), emptyList());
+        Grille grille = new Grille(new Coord(5, 5), singletonList(lapin));
         // When
         commande.executer(lapin, grille, new Action(TypeAction.SAUTER, Direction.BAS));
         // Then
@@ -32,7 +31,7 @@ public class SauterActionImplTest {
     public void testExecuter_Bordure() throws Exception {
         // Given
         Lapin lapin = lapin("Test", 4, 3);
-        Grille grille = new Grille(new Coord(5, 5), singletonList(lapin), emptyList());
+        Grille grille = new Grille(new Coord(5, 5), singletonList(lapin));
         // When
         commande.executer(lapin, grille, new Action(TypeAction.SAUTER, Direction.DROITE));
         // Then
@@ -45,7 +44,7 @@ public class SauterActionImplTest {
         // Given
         Lapin lapin = lapin("Test", 3, 2);
         Lapin mechant = lapin("Méchant", 3, 3);
-        Grille grille = new Grille(new Coord(5, 5), asList(lapin, mechant), emptyList());
+        Grille grille = new Grille(new Coord(5, 5), asList(lapin, mechant));
         // When
         commande.executer(lapin, grille, new Action(TypeAction.SAUTER, Direction.HAUT));
         // Then
@@ -58,7 +57,7 @@ public class SauterActionImplTest {
         // Given
         Lapin lapin = lapin("Test", 4, 3);
         Lapin mechant = lapin("Méchant", 4, 4);
-        Grille grille = new Grille(new Coord(5, 5), asList(lapin, mechant), emptyList());
+        Grille grille = new Grille(new Coord(5, 5), asList(lapin, mechant));
         // When
         commande.executer(lapin, grille, new Action(TypeAction.SAUTER, Direction.HAUT));
         // Then
@@ -71,7 +70,7 @@ public class SauterActionImplTest {
         // Given
         Lapin lapin = lapin("Test", 4, 3);
         Carotte carotte = new Carotte(new Coord(3, 3));
-        Grille grille = new Grille(new Coord(5, 5), singletonList(lapin), singletonList(carotte));
+        Grille grille = new Grille(new Coord(5, 5), asList(lapin, carotte));
         // When
         commande.executer(lapin, grille, new Action(TypeAction.SAUTER, Direction.GAUCHE));
         // Then

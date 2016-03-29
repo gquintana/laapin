@@ -16,8 +16,8 @@ public class MoteurTest {
     private final Joueur joueurMock = mock(Joueur.class);
     private final Lapin lapin = lapin("Mock", joueurMock, 2, 2);
     private final Grille grille = new Grille(new Coord(5, 5),
-            asList(lapin, lapin("Méchant", 2, 3)),
-            asList(carotte(0, 0), carotte(3, 2)));
+            asList(lapin, lapin("Méchant", 2, 3),
+                    carotte(0, 0), carotte(3, 2)));
     private final Configuration configuration = new Configuration();
     private final Moteur moteur = new Moteur(configuration, new MoteurListener() {
         @Override
@@ -68,7 +68,7 @@ public class MoteurTest {
         // Then
         assertThat(lapin.coord.x, is(2));
         assertThat(lapin.coord.y, is(2));
-        assertThat(grille.lapins.get(1).fatigue, is(2));
+        assertThat(grille.lapins().get(1).fatigue, is(2));
     }
 
     @Test

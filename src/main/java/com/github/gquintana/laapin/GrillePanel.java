@@ -1,8 +1,6 @@
 package com.github.gquintana.laapin;
 
-import com.github.gquintana.laapin.moteur.Carotte;
-import com.github.gquintana.laapin.moteur.Grille;
-import com.github.gquintana.laapin.moteur.Lapin;
+import com.github.gquintana.laapin.moteur.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,6 +15,7 @@ public class GrillePanel extends JPanel {
     private final BufferedImage imageFond;
     final BufferedImage imageLapin;
     private final BufferedImage imageCarotte;
+    private final BufferedImage imageRocher;
 
 
     public GrillePanel(Grille grille) throws IOException {
@@ -28,6 +27,7 @@ public class GrillePanel extends JPanel {
         imageFond = loadImage("fond");
         imageLapin = loadImage("lapin");
         imageCarotte = loadImage("carotte");
+        imageRocher = loadImage("rocher");
     }
 
     private BufferedImage loadImage(String name) throws IOException {
@@ -41,15 +41,23 @@ public class GrillePanel extends JPanel {
                 g2d.drawImage(imageFond, x * RESOLUTION, y * RESOLUTION, RESOLUTION, RESOLUTION, null);
             }
         }
-        for (Carotte carotte : grille.carottes) {
-            g2d.drawImage(imageCarotte, carotte.coord.x * RESOLUTION, carotte.coord.y * RESOLUTION, RESOLUTION, RESOLUTION, null);
-        }
-        for (Lapin lapin : grille.lapins) {
-            int x0 = lapin.coord.x * RESOLUTION;
-            int y0 = lapin.coord.y * RESOLUTION;
-            g2d.setPaint(lapin.couleur);
-            g2d.drawOval(x0, y0, RESOLUTION, RESOLUTION);
-            g2d.drawImage(imageLapin, x0, y0, RESOLUTION, RESOLUTION, null);
+        for (Lutin lutin : grille.lutins) {
+            BufferedImage image = null;
+            if (lutin instanceof Carotte) {
+                image = imageCarotte;
+            } else if (lutin instanceof Rocher) {
+                image = imageRocher;
+            } else if (lutin instanceof Lapin) {
+                Lapin lapin = (Lapin) lutin;
+                int x0 = lapin.coord.x * RESOLUTION;
+                int y0 = lapin.coord.y * RESOLUTION;
+                g2d.setPaint(lapin.couleur);
+                g2d.drawOval(x0, y0, RESOLUTION, RESOLUTION);
+                image = imageLapin;
+            }
+            if (image != null) {
+                g2d.drawImage(image, lutin.coord.x * RESOLUTION, lutin.coord.y * RESOLUTION, RESOLUTION, RESOLUTION, null);
+            }
         }
     }
 

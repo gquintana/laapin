@@ -10,18 +10,23 @@ public class AvancerActionImpl implements ActionImpl {
         if (!grille.contient(coordCible)) {
             return new ResultatAction(action, "Pas par là");
         }
-        Lapin autreLapin = grille.getLapin(coordCible);
-        if (autreLapin != null) {
+        Lutin lutin = grille.getLutin(coordCible);
+        if (lutin instanceof Lapin) {
             return new ResultatAction(action, "Occupé");
+        } else if (lutin instanceof Rocher) {
+            return new ResultatAction(action, "Pas d'escalade");
+        } else {
+            lapin.coord = coordCible;
+            if (lutin instanceof Carotte) {
+                Carotte carotte = (Carotte) lutin;
+                if (carotte != null) {
+                    ResultatAction resultatAction = new ResultatAction(action, "Miam");
+                    lapin.manger(carotte);
+                    grille.supprimerCarotte(carotte);
+                    return resultatAction;
+                }
+            }
+            return new ResultatAction(action, "En avant");
         }
-        Carotte carotte = grille.getCarotte(coordCible);
-        lapin.coord = coordCible;
-        if (carotte != null) {
-            ResultatAction resultatAction = new ResultatAction(action, "Miam");
-            lapin.manger(carotte);
-            grille.supprimerCarotte(carotte);
-            return resultatAction;
-        }
-        return new ResultatAction(action, "En avant");
     }
 }

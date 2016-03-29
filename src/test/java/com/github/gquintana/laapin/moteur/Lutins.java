@@ -5,7 +5,6 @@ import com.github.gquintana.laapin.joueur.Coord;
 import com.github.gquintana.laapin.joueur.Joueur;
 
 import java.awt.*;
-import java.util.List;
 
 public class Lutins {
     public static Lapin lapin(String nom, Joueur joueur, int x, int y) {
@@ -21,6 +20,9 @@ public class Lutins {
     }
     public static Carotte carotte(int x, int y) {
         return new Carotte(new Coord(x, y));
+    }
+    public static Rocher rocher(int x, int y) {
+        return new Rocher(new Coord(x, y));
     }
 
 }
