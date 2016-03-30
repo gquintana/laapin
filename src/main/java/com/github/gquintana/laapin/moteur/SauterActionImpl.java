@@ -10,18 +10,18 @@ public class SauterActionImpl implements ActionImpl {
         Coord coordCible2 = action.direction.calculer(lapin.coord, 2);
         Lapin lapinCible = grille.getLapin(coordCible);
         if (lapinCible == null) {
-            return new ResultatAction(action, "???");
+            return new ResultatAction(lapin, action, "???");
         }
         if (!grille.contient(coordCible2)) {
-            return new ResultatAction(action, "Pas par là");
+            return new ResultatAction(lapin, action, "Pas par là");
         }
         Carotte carotte = grille.getCarotte(coordCible2);
         lapin.coord = coordCible2;
         if (carotte == null) {
-            return new ResultatAction(action, "Et hop");
+            return new ResultatAction(lapin, action, "Et hop");
         } else {
             lapin.manger(carotte);
-            return new ResultatAction(action, "Miam");
+            return new ResultatAction(lapin, action, "Miam");
         }
     }
 }

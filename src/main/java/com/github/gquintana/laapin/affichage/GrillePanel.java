@@ -1,4 +1,4 @@
-package com.github.gquintana.laapin;
+package com.github.gquintana.laapin.affichage;
 
 import com.github.gquintana.laapin.moteur.*;
 import javafx.scene.Group;
@@ -8,12 +8,12 @@ import javafx.scene.image.Image;
 
 import java.io.IOException;
 
-class GrillePanel extends Group {
+public class GrillePanel extends Group {
     private static final int RESOLUTION = 64;
     private final Grille grille;
     private final Canvas canvas;
     private final Image imageFond;
-    final Image imageLapin;
+    public final Image imageLapin;
     private final Image imageCarotte;
     private final Image imageRocher;
 

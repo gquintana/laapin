@@ -88,7 +88,7 @@ public class Moteur {
         ActionImpl actionImpl = commandes.get(action.type);
         ResultatAction resultatAction = actionImpl.executer(leLapin, grille, action);
         if (messageErreur != null) {
-            resultatAction = new ResultatAction(resultatAction.action, messageErreur);
+            resultatAction = new ResultatAction(leLapin, resultatAction.action, messageErreur);
         }
         System.out.println(String.format("Lapin %s: %s %s %s", leLapin.nom, action.type, action.direction, resultatAction.message));
         leLapin.derniereAction = action;

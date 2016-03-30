@@ -8,6 +8,6 @@ public class SeReposerActionImpl implements ActionImpl {
         if (lapin.fatigue > 0) {
             lapin.fatigue--;
         }
-        return new ResultatAction(action, "Zzzz");
+        return new ResultatAction(lapin, action, "Zzzz");
     }
 }

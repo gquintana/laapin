@@ -9,9 +9,9 @@ public class FrapperActionImpl implements ActionImpl {
         Coord coordCible = action.direction.calculer(lapin.coord, 1);
         Lapin lapinCible = grille.getLapin(coordCible);
         if (lapinCible == null) {
-            return new ResultatAction(action, "Raté");
+            return new ResultatAction(lapin, action, "Raté");
         }
         lapinCible.recevoirCoup();
-        return new ResultatAction(action, "Touché "+lapin.nom);
+        return new ResultatAction(lapin, action, "Touché "+lapin.nom);
     }
 }
