@@ -3,8 +3,8 @@ package com.github.gquintana.laapin.moteur;
 import com.github.gquintana.laapin.joueur.Action;
 import com.github.gquintana.laapin.joueur.Coord;
 import com.github.gquintana.laapin.joueur.Joueur;
+import javafx.scene.paint.Color;
 
-import java.awt.*;
 
 public class Lapin extends Lutin {
     public final String nom;

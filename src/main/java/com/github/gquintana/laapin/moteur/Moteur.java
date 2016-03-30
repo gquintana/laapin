@@ -100,7 +100,7 @@ public class Moteur {
         return resultatAction;
     }
 
-    private void arreter() {
+    public void arreter() {
         if (scheduledFuture != null && !scheduledFuture.isCancelled()) {
             scheduledFuture.cancel(false);
         }

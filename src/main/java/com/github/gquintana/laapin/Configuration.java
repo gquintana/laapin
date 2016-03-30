@@ -1,6 +1,7 @@
 package com.github.gquintana.laapin;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -65,7 +66,7 @@ public class Configuration {
         stringValue = stringValue.trim().toUpperCase();
         Matcher colorMatcher = COLOR_PATTERN.matcher(stringValue);
         if (colorMatcher.matches()) {
-            return Color.decode("0x" + colorMatcher.group(1));
+            return Color.web(stringValue, 1.0);
         }
         try {
             Class<Color> colorClass = Color.class;

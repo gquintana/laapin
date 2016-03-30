@@ -3,10 +3,9 @@ package com.github.gquintana.laapin.moteur;
 import com.github.gquintana.laapin.Configuration;
 import com.github.gquintana.laapin.joueur.Coord;
 import com.github.gquintana.laapin.joueur.Joueur;
+import javafx.scene.paint.Color;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class GrilleFactory {
     public final Configuration configuration;

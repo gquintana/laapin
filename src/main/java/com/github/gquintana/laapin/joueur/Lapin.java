@@ -1,6 +1,7 @@
 package com.github.gquintana.laapin.joueur;
 
-import java.awt.*;
+
+import javafx.scene.paint.Color;
 
 public class Lapin extends Lutin {
     public final String nom;
