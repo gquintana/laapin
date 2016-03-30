@@ -59,7 +59,7 @@ public class FrapperActionImplTest {
         // Given
         Lapin lapin = lapin("Test", 4, 3);
         Carotte carotte = new Carotte(new Coord(3, 3));
-        Grille grille = new Grille(new Coord(5, 5), singletonList(lapin));
+        Grille grille = new Grille(new Coord(5, 5), asList(lapin, carotte));
         // When
         commande.executer(lapin, grille, new Action(TypeAction.FRAPPER, Direction.GAUCHE));
         // Then

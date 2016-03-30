@@ -7,9 +7,9 @@ import javafx.scene.paint.Color;
 
 import java.util.*;
 
-public class GrilleFactory {
-    public final Configuration configuration;
-    public final Random random;
+class GrilleFactory {
+    private final Configuration configuration;
+    private final Random random;
 
     public GrilleFactory(Configuration configuration, Random random) {
         this.configuration = configuration;

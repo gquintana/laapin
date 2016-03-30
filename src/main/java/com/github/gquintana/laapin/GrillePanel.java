@@ -8,8 +8,8 @@ import javafx.scene.image.Image;
 
 import java.io.IOException;
 
-public class GrillePanel extends Group {
-    public static final int RESOLUTION = 64;
+class GrillePanel extends Group {
+    private static final int RESOLUTION = 64;
     private final Grille grille;
     private final Canvas canvas;
     private final Image imageFond;
@@ -30,7 +30,7 @@ public class GrillePanel extends Group {
         imageRocher = loadImage("rocher");
     }
 
-    private Image loadImage(String name) throws IOException {
+    private Image loadImage(String name) {
         return new Image(getClass().getResourceAsStream(name + "-" + RESOLUTION + ".png"));
     }
 

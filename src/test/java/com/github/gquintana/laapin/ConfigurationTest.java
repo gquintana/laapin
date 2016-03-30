@@ -1,15 +1,12 @@
 package com.github.gquintana.laapin;
 
-import org.hamcrest.Matchers;
+import javafx.scene.paint.Color;
 import org.junit.Test;
 
-import java.awt.*;
 import java.io.IOException;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
-import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 public class ConfigurationTest {
     @Test
@@ -25,7 +22,7 @@ public class ConfigurationTest {
         assertThat(configuration.getClass("inconnu"), nullValue());
         assertThat(configuration.getString("chaine"), equalTo("Bonjour le monde"));
         assertThat(configuration.getString("inconnu"), nullValue());
-        assertThat(configuration.getColor("couleur.hexa"), equalTo(new Color(171, 192, 18)));
+        assertThat(configuration.getColor("couleur.hexa"), equalTo(Color.rgb(171, 192, 18)));
         assertThat(configuration.getColor("couleur.nom"), equalTo(Color.GREEN));
         assertThat(configuration.getColor("inconnu"), nullValue());
     }

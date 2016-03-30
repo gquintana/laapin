@@ -19,7 +19,7 @@ public class GrilleFactoryTest {
         // When
         Grille grille = grilleFactory.creerGrille();
         // Then
-        assertThat(grille.lutinStream(Carotte.class).count(), is(5));
+        assertThat(grille.lutinStream(Carotte.class).count(), is(5L));
         assertThat(grille.lapins().size(), is(2));
     }
 
@@ -30,7 +30,7 @@ public class GrilleFactoryTest {
         configuration.load(getClass().getResourceAsStream("laapin-saturee.properties"));
         GrilleFactory grilleFactory = new GrilleFactory(configuration, new Random());
         // When
-        Grille grille = grilleFactory.creerGrille();
+        grilleFactory.creerGrille();
         // Then
     }
 

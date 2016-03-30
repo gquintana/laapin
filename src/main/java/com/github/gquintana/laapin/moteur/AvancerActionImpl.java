@@ -19,12 +19,10 @@ public class AvancerActionImpl implements ActionImpl {
             lapin.coord = coordCible;
             if (lutin instanceof Carotte) {
                 Carotte carotte = (Carotte) lutin;
-                if (carotte != null) {
-                    ResultatAction resultatAction = new ResultatAction(action, "Miam");
-                    lapin.manger(carotte);
-                    grille.supprimerCarotte(carotte);
-                    return resultatAction;
-                }
+                ResultatAction resultatAction = new ResultatAction(action, "Miam");
+                lapin.manger(carotte);
+                grille.supprimerCarotte(carotte);
+                return resultatAction;
             }
             return new ResultatAction(action, "En avant");
         }
