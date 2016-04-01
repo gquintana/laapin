@@ -30,6 +30,7 @@ public class Grille {
     private <L extends Lutin> boolean contient(Coord coord, Class<L> lutinClass) {
         return lutins.stream().filter(l -> l.coord.equals(coord) && lutinClass.isInstance(l)).findFirst().isPresent();
     }
+
     /**
      * Teste si une cellule contient un lapin
      */
@@ -51,7 +52,9 @@ public class Grille {
         return contient(coord, Rocher.class);
     }
 
-    /** Retourne le contenu d'une cellule: carotte ou lapin ou <code>null</code> */
+    /**
+     * Retourne le contenu d'une cellule: carotte ou lapin ou <code>null</code>
+     */
     public Lutin lutin(final Coord coord) {
         Optional<Lutin> lutin = lutins.stream().filter(l -> l.coord.equals(coord)).findAny();
         return lutin.orElse(null);
@@ -98,4 +101,28 @@ public class Grille {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Teste si la cellule contient un obstacle: rocher, lapin ou bordure
+     */
+    public boolean contientObstacle(Coord coord) {
+        if (!contient(coord)) {
+            return true;
+        }
+        Lutin lutin = lutin(coord);
+        return lutin instanceof Rocher || lutin instanceof Lapin;
+    }
+
+    /**
+     * Teste si on peut aller dans une cellule
+     */
+    public boolean estAccessible(Coord coord) {
+        return !contientObstacle(coord);
+    }
+
+    /**
+     * Calcule le distancier pour aller vers une cellule
+     */
+    public Distancier distancierVers(Coord coord) {
+        return new Distancier(this, coord);
+    }
 }
