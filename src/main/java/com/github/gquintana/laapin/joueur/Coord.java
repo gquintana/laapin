@@ -1,6 +1,9 @@
 package com.github.gquintana.laapin.joueur;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Coordonnées d'une cellule
@@ -41,5 +44,9 @@ public class Coord {
 
     public boolean estA(Direction direction, Coord autre) {
         return direction.estA(this, autre);
+    }
+
+    List<Direction> directionsVers(final Coord cible) {
+        return Arrays.stream(Direction.values()).filter(d -> d.estA(cible, this)).collect(Collectors.toList());
     }
 }

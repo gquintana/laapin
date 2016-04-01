@@ -1,5 +1,7 @@
 package com.github.gquintana.laapin.joueur;
 
+import java.util.List;
+
 public class Lutin {
 
     public final Coord coord;
@@ -26,6 +28,11 @@ public class Lutin {
 
     public DirectionPredicateBuilder estA(Direction direction) {
         return new DirectionPredicateBuilder(this, direction);
+    }
+
+    public List<Direction> directionsVers(Lutin lutin) {
+        return coord.directionsVers(lutin.coord);
+
     }
 
     @Override

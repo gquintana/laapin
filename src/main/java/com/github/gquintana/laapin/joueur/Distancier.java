@@ -80,4 +80,8 @@ public class Distancier {
         }
         return directionResult;
     }
+
+    public Direction directionDepuis(Lutin lutin) {
+        return directionDepuis(lutin.coord);
+    }
 }

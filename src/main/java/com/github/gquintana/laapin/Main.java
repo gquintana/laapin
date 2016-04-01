@@ -9,8 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Main extends Application {
     private Moteur moteur;
@@ -38,7 +38,8 @@ public class Main extends Application {
         final Configuration configuration = new Configuration();
         configuration.load();
         if (!getParameters().getRaw().isEmpty()) {
-            try(FileInputStream inputStream = new FileInputStream(getParameters().getRaw().get(0))) {
+            String configFileName = getParameters().getRaw().get(0);
+            try(InputStream inputStream = Resources.open(configFileName)) {
                 configuration.load(inputStream);
             }
         }

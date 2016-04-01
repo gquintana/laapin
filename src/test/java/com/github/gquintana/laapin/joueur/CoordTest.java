@@ -1,12 +1,11 @@
 package com.github.gquintana.laapin.joueur;
 
-import com.github.gquintana.laapin.joueur.Coord;
-import com.github.gquintana.laapin.joueur.Direction;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import java.util.List;
+
+import static org.hamcrest.Matchers.hasItems;
+import static org.junit.Assert.*;
 
 public class CoordTest {
     /**
@@ -31,8 +30,17 @@ public class CoordTest {
         assertNotEquals(new Coord(4, 4), new Coord(3, 4));
         assertNotEquals(new Coord(4, 3), new Coord(3, 4));
     }
+
     @Test
     public void testEstA() {
         assertTrue(new Coord(4, 2).estA(Direction.DROITE, new Coord(2, 2)));
+    }
+
+    @Test
+    public void testDirectionVers() {
+        // When
+        List<Direction> directions = new Coord(2, 2).directionsVers(new Coord(4, 3));
+        // Then
+        assertThat(directions, hasItems(Direction.HAUT, Direction.DROITE));
     }
 }

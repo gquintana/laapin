@@ -1,6 +1,6 @@
 package com.github.gquintana.laapin.joueur;
 
-public class DemoJoueur implements Joueur {
+public class Demo1Joueur implements Joueur {
     @Override
     public Action reflechir(Lapin monLapin, Grille grille) {
         Carotte carotte = grille.carotteProche(monLapin);

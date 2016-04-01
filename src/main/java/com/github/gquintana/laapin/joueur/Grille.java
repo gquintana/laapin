@@ -125,4 +125,11 @@ public class Grille {
     public Distancier distancierVers(Coord coord) {
         return new Distancier(this, coord);
     }
+
+    /**
+     * Calcule le distancier pour aller vers un lutin
+     */
+    public Distancier distancierVers(Lutin lutin) {
+        return distancierVers(lutin.coord);
+    }
 }
