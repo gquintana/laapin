@@ -4,6 +4,7 @@ import com.github.gquintana.laapin.Configuration;
 import com.github.gquintana.laapin.Resources;
 import com.github.gquintana.laapin.joueur.Coord;
 import com.github.gquintana.laapin.joueur.Joueur;
+import com.github.gquintana.laapin.joueur.ScriptJoueur;
 import javafx.scene.paint.Color;
 
 import java.io.BufferedReader;
@@ -24,8 +25,9 @@ class GrilleFactory {
     private Coord randomCoord(Coord taille) {
         return new Coord(random.nextInt(taille.x), random.nextInt(taille.y));
     }
+
     private Coord randomCoord(Coord taille, Set<Coord> coordUtilisees) {
-        for (int i = 0; i < 2*taille.x*taille.y; i++) {
+        for (int i = 0; i < 2 * taille.x * taille.y; i++) {
             Coord coord = randomCoord(taille);
             if (!coordUtilisees.contains(coord)) {
                 return coord;
@@ -33,6 +35,7 @@ class GrilleFactory {
         }
         throw new IllegalStateException("Cellulle vide introuvable");
     }
+
     /**
      * Crée ou charge un grille à partir de la configuration
      */
@@ -45,7 +48,7 @@ class GrilleFactory {
         // Chargement de la grille
         String modele = configuration.getString("grille.modele");
         if (modele != null) {
-            try (InputStream inputStream = Resources.open(modele)) {
+            try (InputStream inputStream = Resources.openStream(modele)) {
                 lutins.addAll(chargerLutins(taille, inputStream, coordUtilisees));
             } catch (IOException ioExc) {
                 throw new IllegalArgumentException("Erreur lecture grille " + modele);
@@ -144,7 +147,18 @@ class GrilleFactory {
         String prefixConfig = "lapin." + indexLapin;
         String classConfig = prefixConfig + ".class";
         try {
-            Joueur joueur = Joueur.class.cast(configuration.getClass(classConfig).newInstance());
+            Class<? extends Joueur> classeJoueur = configuration.getClass(classConfig);
+            Joueur joueur;
+            if (classeJoueur == null || classeJoueur.equals(ScriptJoueur.class)) {
+                String scriptConfig = prefixConfig + ".script";
+                String nomScript = configuration.getString(scriptConfig);
+                if (scriptConfig == null) {
+                    throw new IllegalArgumentException("Configuration "+scriptConfig + " manquante");
+                }
+                joueur = new ScriptJoueur(nomScript);
+            } else {
+                joueur = Joueur.class.cast(classeJoueur.newInstance());
+            }
             String nom = configuration.getString(prefixConfig + ".nom");
             Color couleur = configuration.getColor(prefixConfig + ".couleur");
             return new Lapin(coord, nom, couleur, null, 0, joueur);

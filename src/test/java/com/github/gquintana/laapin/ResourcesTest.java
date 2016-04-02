@@ -21,30 +21,30 @@ public class ResourcesTest {
     }
     @Test
     public void testOpen_Classpath() throws Exception {
-        assertThat(close(Resources.open("classpath:affichage/lapin-16.png")), is(notNullValue()));
-        assertThat(close(Resources.open("classpath:/laapin1.properties")), is(notNullValue()));
+        assertThat(close(Resources.openStream("classpath:affichage/lapin-16.png")), is(notNullValue()));
+        assertThat(close(Resources.openStream("classpath:/laapin1.properties")), is(notNullValue()));
     }
 
     @Test(expected = FileNotFoundException.class)
     public void testOpen_ClasspathNotFound() throws Exception {
-        Resources.open("classpath:unknown.txt");
+        Resources.openStream("classpath:unknown.txt");
     }
 
     @Test
     public void testOpen_File() throws Exception {
-        assertThat(close(Resources.open("file:src/main/resources/laapin1.properties")), is(notNullValue()));
-        assertThat(close(Resources.open("file://"+new File("src/main/resources/laapin1.properties").getAbsolutePath())), is(notNullValue()));
-        assertThat(close(Resources.open("src/main/resources/laapin1.properties")), is(notNullValue()));
-        assertThat(close(Resources.open(new File("src/main/resources/laapin1.properties").getAbsolutePath())), is(notNullValue()));
+        assertThat(close(Resources.openStream("file:src/main/resources/laapin1.properties")), is(notNullValue()));
+        assertThat(close(Resources.openStream("file://"+new File("src/main/resources/laapin1.properties").getAbsolutePath())), is(notNullValue()));
+        assertThat(close(Resources.openStream("src/main/resources/laapin1.properties")), is(notNullValue()));
+        assertThat(close(Resources.openStream(new File("src/main/resources/laapin1.properties").getAbsolutePath())), is(notNullValue()));
     }
 
     @Test(expected = FileNotFoundException.class)
     public void testOpen_FileNotFound() throws Exception {
-        Resources.open("file:unknown.txt");
+        Resources.openStream("file:unknown.txt");
     }
     @Test(expected = FileNotFoundException.class)
     public void testOpen_FileNotFound2() throws Exception {
-        Resources.open("unknown.txt");
+        Resources.openStream("unknown.txt");
     }
 
 }

@@ -1,9 +1,6 @@
 package com.github.gquintana.laapin;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +12,7 @@ public class Resources {
     /**
      * Charge un fichier depuis le classpath ou le système de fichier
      */
-    public static InputStream open(String name) throws IOException {
+    public static InputStream openStream(String name) throws IOException {
         InputStream inputStream;
         Matcher matcher = URI_PATTERN.matcher(name);
         if (matcher.matches()) {
@@ -34,4 +31,12 @@ public class Resources {
         }
         return inputStream;
     }
+
+    /**
+     * Charge un fichier depuis le classpath ou le système de fichier
+     */
+    public static Reader openReader(String name) throws IOException {
+        return new InputStreamReader(openStream(name), "UTF-8");
+    }
+
 }

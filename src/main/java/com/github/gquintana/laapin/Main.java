@@ -39,7 +39,7 @@ public class Main extends Application {
         configuration.load();
         if (!getParameters().getRaw().isEmpty()) {
             String configFileName = getParameters().getRaw().get(0);
-            try(InputStream inputStream = Resources.open(configFileName)) {
+            try(InputStream inputStream = Resources.openStream(configFileName)) {
                 configuration.load(inputStream);
             }
         }

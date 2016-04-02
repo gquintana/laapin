@@ -53,3 +53,12 @@ public class DemoJoueur implements Joueur {
     }
 }
 ```
+
+### En JavaScript
+
+```javascript
+var carotte = grille.carotteProche(monLapin);
+if (carotte) {
+    if (carotte.estA(Direction.DROITE).de(monLapin)) {
+        joueur.avancer().aDroite();
+```
