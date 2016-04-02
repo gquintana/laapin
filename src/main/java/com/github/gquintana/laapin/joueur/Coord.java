@@ -42,11 +42,24 @@ public class Coord {
         return "(" + x + ", " + y + ')';
     }
 
+    /**
+     * Teste si la cellulle est à gauche/droite/haut/bas d'une autre
+     */
     public boolean estA(Direction direction, Coord autre) {
         return direction.estA(this, autre);
     }
 
+    /**
+     * Calcule la ou les direction pour aller vers la cellule cible
+     */
     List<Direction> directionsVers(final Coord cible) {
         return Arrays.stream(Direction.values()).filter(d -> d.estA(cible, this)).collect(Collectors.toList());
+    }
+
+    /**
+     * Calcule les coordonnées dans une direction
+     */
+    public Coord coordVers(Direction direction) {
+        return direction.de(this);
     }
 }

@@ -6,7 +6,7 @@ import com.github.gquintana.laapin.joueur.Coord;
 public class AvancerActionImpl implements ActionImpl {
     @Override
     public ResultatAction executer(Lapin lapin, Grille grille, Action action) {
-        Coord coordCible = action.direction.calculer(lapin.coord, 1);
+        Coord coordCible = action.direction.de(lapin.coord);
         if (!grille.contient(coordCible)) {
             return new ResultatAction(lapin, action, "Pas par là");
         }

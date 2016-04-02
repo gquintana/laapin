@@ -3,7 +3,7 @@ package com.github.gquintana.laapin.joueur;
 public enum Direction {
     HAUT() {
         @Override
-        public Coord calculer(Coord coord, int distance) {
+        public Coord de(Coord coord, int distance) {
             return new Coord(coord.x, coord.y + distance);
         }
 
@@ -13,7 +13,7 @@ public enum Direction {
         }
     }, BAS() {
         @Override
-        public Coord calculer(Coord coord, int distance) {
+        public Coord de(Coord coord, int distance) {
             return new Coord(coord.x, coord.y - distance);
         }
 
@@ -23,7 +23,7 @@ public enum Direction {
         }
     }, GAUCHE {
         @Override
-        public Coord calculer(Coord coord, int distance) {
+        public Coord de(Coord coord, int distance) {
             return new Coord(coord.x - distance, coord.y);
         }
 
@@ -33,7 +33,7 @@ public enum Direction {
         }
     }, DROITE {
         @Override
-        public Coord calculer(Coord coord, int distance) {
+        public Coord de(Coord coord, int distance) {
             return new Coord(coord.x + distance, coord.y);
         }
 
@@ -43,12 +43,12 @@ public enum Direction {
         }
     };
 
-    public abstract Coord calculer(Coord coord, int distance);
+    public abstract Coord de(Coord coord, int distance);
 
     public abstract boolean estA(Coord coord, Coord autre);
 
     public Coord de(Coord coord) {
-        return calculer(coord, 1);
+        return de(coord, 1);
     }
     public Coord de(Lutin lutin) {
         return de(lutin.coord);

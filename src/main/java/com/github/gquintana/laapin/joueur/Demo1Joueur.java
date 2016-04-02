@@ -1,21 +1,23 @@
 package com.github.gquintana.laapin.joueur;
 
+import static com.github.gquintana.laapin.joueur.Action.avancer;
+
 public class Demo1Joueur implements Joueur {
     @Override
     public Action reflechir(Lapin monLapin, Grille grille) {
         Carotte carotte = grille.carotteProche(monLapin);
         if (carotte != null) {
-            if (carotte.estA(Direction.DROITE).de(monLapin)) {
-                return TypeAction.AVANCER.vers(Direction.DROITE);
+            if (carotte.estADroite().de(monLapin)) {
+                return avancer().aDroite();
 
-            } else if (carotte.estA(Direction.GAUCHE).de(monLapin)) {
-                return TypeAction.AVANCER.vers(Direction.GAUCHE);
+            } else if (carotte.estAGauche().de(monLapin)) {
+                return avancer().aGauche();
 
-            } else if (carotte.estA(Direction.HAUT).de(monLapin)) {
-                return TypeAction.AVANCER.vers(Direction.HAUT);
+            } else if (carotte.estEnHaut().de(monLapin)) {
+                return avancer().enHaut();
 
-            } else if (carotte.estA(Direction.BAS).de(monLapin)) {
-                return TypeAction.AVANCER.vers(Direction.BAS);
+            } else if (carotte.estEnBas().de(monLapin)) {
+                return avancer().enBas();
             }
         }
         return null;

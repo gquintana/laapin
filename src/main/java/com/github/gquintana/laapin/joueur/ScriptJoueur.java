@@ -61,7 +61,7 @@ public class ScriptJoueur implements Joueur {
                 result = script.eval(preparerBindings(monLapin, grille));
             } else {
                 try (Reader reader = Resources.openReader(nom)) {
-                    result =  moteur.eval(reader, preparerBindings(monLapin, grille));
+                    result = moteur.eval(reader, preparerBindings(monLapin, grille));
                 } catch (IOException e) {
                     throw new IllegalStateException("Erreur lecture script " + nom, e);
                 }
@@ -81,48 +81,36 @@ public class ScriptJoueur implements Joueur {
         return bindings;
     }
 
-    public class ActionBuilder {
-        private final TypeAction typeAction;
-        private Direction direction;
+    public class ActionBuilder extends Action.Builder {
 
         public ActionBuilder(TypeAction typeAction) {
-            this.typeAction = typeAction;
+            super(typeAction);
         }
 
-        public Action aGauche() {
-            direction = Direction.GAUCHE;
-            return build();
-        }
-        public Action aDroite() {
-            direction = Direction.DROITE;
-            return build();
-        }
-        public Action enHaut() {
-            direction = Direction.HAUT;
-            return build();
-        }
-        public Action enBas() {
-            direction = Direction.BAS;
-            return build();
-        }
-        public Action build() {
-            Action action = new Action(typeAction, direction);
+        @Override
+        public Action vers(Direction direction) {
+            Action action = super.vers(direction);
             agir(action);
             return action;
         }
     }
+
     public void agir(Action action) {
         this.action = action;
     }
+
     public ActionBuilder avancer() {
         return new ActionBuilder(TypeAction.AVANCER);
     }
+
     public ActionBuilder frapper() {
         return new ActionBuilder(TypeAction.FRAPPER);
     }
+
     public ActionBuilder sauter() {
         return new ActionBuilder(TypeAction.SAUTER);
     }
+
     public Action seReposer() {
         Action action = new Action(TypeAction.SE_REPOSER, null);
         agir(action);

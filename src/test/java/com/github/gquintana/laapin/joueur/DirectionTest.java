@@ -3,18 +3,16 @@ package com.github.gquintana.laapin.joueur;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class DirectionTest  {
     @Test
-    public void testCalculer() {
-        assertEquals(new Coord(3, 3), Direction.HAUT.calculer(new Coord(3, 2), 1));
-        assertEquals(new Coord(3, 1), Direction.BAS.calculer(new Coord(3, 2), 1));
-        assertEquals(new Coord(2, 2), Direction.GAUCHE.calculer(new Coord(3, 2), 1));
-        assertEquals(new Coord(4, 2), Direction.DROITE.calculer(new Coord(3, 2), 1));
-        assertEquals(new Coord(3, 5), Direction.HAUT.calculer(new Coord(3, 2), 3));
+    public void testDe_Distance() {
+        assertEquals(new Coord(3, 3), Direction.HAUT.de(new Coord(3, 2), 1));
+        assertEquals(new Coord(3, 1), Direction.BAS.de(new Coord(3, 2), 1));
+        assertEquals(new Coord(2, 2), Direction.GAUCHE.de(new Coord(3, 2), 1));
+        assertEquals(new Coord(4, 2), Direction.DROITE.de(new Coord(3, 2), 1));
+        assertEquals(new Coord(3, 5), Direction.HAUT.de(new Coord(3, 2), 3));
     }
     @Test
     public void testEstA() {
