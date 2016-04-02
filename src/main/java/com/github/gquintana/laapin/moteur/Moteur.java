@@ -44,7 +44,7 @@ public class Moteur {
         this.random = randomSeed < 0 ? new Random() : new Random(randomSeed);
         GrilleFactory grilleFactory = new GrilleFactory(configuration, random);
         grille = grilleFactory.creerGrille();
-        scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(this::activerLapin, 0, configuration.getInt("moteur.periode", 2), TimeUnit.SECONDS);
+        scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(this::activerLapin, 0, configuration.getInt("moteur.periode", 2000), TimeUnit.MILLISECONDS);
         listener.onDemarrer(grille);
     }
 

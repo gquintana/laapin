@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Main extends Application {
+    private Configuration configuration;
     private Moteur moteur;
     private GrillePanel grillePanel;
     private Grille grille;
@@ -22,7 +23,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Laapin");
-        grillePanel = new GrillePanel(grille);
+        grillePanel = new GrillePanel(grille, configuration);
         statsPanel = new StatsPanel();
         HBox root = new HBox(statsPanel, grillePanel);
         Scene scene = new Scene(root);
@@ -35,7 +36,7 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         super.init();
-        final Configuration configuration = new Configuration();
+        configuration = new Configuration();
         configuration.load();
         if (!getParameters().getRaw().isEmpty()) {
             String configFileName = getParameters().getRaw().get(0);
