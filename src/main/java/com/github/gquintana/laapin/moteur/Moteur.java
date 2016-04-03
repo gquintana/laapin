@@ -104,6 +104,7 @@ public class Moteur {
         if (scheduledFuture != null && !scheduledFuture.isCancelled()) {
             scheduledFuture.cancel(false);
         }
+        scheduledExecutorService.shutdown();
         grille.lutinStream(Lapin.class).sorted(Comparator.comparingInt(Lapin::score).reversed())
                 .forEach(l -> System.out.println(l + " " + l.score()));
     }

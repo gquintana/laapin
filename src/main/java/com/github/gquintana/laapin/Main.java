@@ -29,6 +29,11 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(grillePanel.imageLapin);
+        primaryStage.setOnCloseRequest(event -> {
+            if (moteur != null) {
+                moteur.arreter();
+            }
+        });
         primaryStage.show();
         primaryStage.toFront();
     }
