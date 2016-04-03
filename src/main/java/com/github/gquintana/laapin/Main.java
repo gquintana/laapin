@@ -54,35 +54,42 @@ public class Main extends Application {
             public void onDemarrer(Grille grille) {
                 Main.this.grille = grille;
                 Platform.runLater(() -> {
-                    if (statsPanel != null) {
-                        statsPanel.setLapinsList(grille.lapins());
-                    }
+                    mettreAJourStatsPanel(grille, null);
                 });
             }
 
             @Override
             public void onAgir(Grille grille, Lapin lapin, ResultatAction resultatAction) {
                 Platform.runLater(() -> {
-                    if (statsPanel != null) {
-                        statsPanel.setLapinsList(grille.lapins());
-                        statsPanel.addAction(resultatAction);
-                    }
-                    if (grillePanel != null) {
-                        grillePanel.repaint();
-                    }
+                    mettreAJourStatsPanel(grille, resultatAction);
+                    mettreAJourGrillePanel();
                 });
             }
 
             @Override
             public void onArreter(Grille grille) {
                 Platform.runLater(() -> {
-                    if (statsPanel != null) {
-                        statsPanel.setLapinsList(grille.lapins());
-                    }
+                    mettreAJourStatsPanel(grille, null);
+                    mettreAJourGrillePanel();
                 });
             }
         });
         moteur.demarrer();
+    }
+
+    private void mettreAJourGrillePanel() {
+        if (grillePanel != null) {
+            grillePanel.repaint();
+        }
+    }
+
+    private void mettreAJourStatsPanel(Grille grille, ResultatAction resultatAction) {
+        if (statsPanel != null) {
+            statsPanel.setLapinsList(grille.lapins());
+            if (resultatAction != null) {
+                statsPanel.addAction(resultatAction);
+            }
+        }
     }
 
     @Override

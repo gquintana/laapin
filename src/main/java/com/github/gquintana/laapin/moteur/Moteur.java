@@ -46,11 +46,16 @@ public class Moteur {
         grille = grilleFactory.creerGrille();
         scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(this::activerLapin, 0, configuration.getInt("moteur.periode", 2000), TimeUnit.MILLISECONDS);
         listener.onDemarrer(grille);
+        if (grille.lapins().isEmpty()) {
+            listener.onArreter(grille);
+        } else {
+            initLapinIterator();
+        }
     }
 
     private void initLapinIterator() {
         List<Lapin> lapinList = new ArrayList<>(grille.lapins());
-        if (configuration.getBoolean("lapins.shuffle", true)) {
+        if (configuration.getBoolean("moteur.shuffle", true)) {
             Collections.shuffle(lapinList, random);
         }
         lapinIterator = lapinList.iterator();

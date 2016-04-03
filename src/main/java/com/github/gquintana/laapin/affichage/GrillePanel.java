@@ -38,6 +38,7 @@ public class GrillePanel extends Group {
         imageCarotte = loadImage("carotte");
         imageRocher = loadImage("rocher");
         fond = configuration.getBoolean("grille.fond", true);
+        repaint();
     }
 
     private Image loadImage(String name) {
