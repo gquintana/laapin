@@ -62,3 +62,7 @@ if (carotte) {
     if (carotte.estA(Direction.DROITE).de(monLapin)) {
         joueur.avancer().aDroite();
 ```
+
+## Implémentation
+
+Voir la [trame](src/main/asciidoc/exercices.adoc)

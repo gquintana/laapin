@@ -1,0 +1,86 @@
+= Exercices
+
+== Exercice 1
+
+L'objectif est d'amener le lapin sur les carottes.
+
+[source,java]
+----
+Carotte carotte = grille.carotteProche(monLapin); // <1>
+if (carotte == null) {                            // <2>
+    return seReposer();
+} else {
+    if (carotte.estADroite().de(monLapin)) {      // <3>
+        return avancer().aDroite();               // <4>
+    }
+}
+----
+
+<1> Récuperer la carotte la plus proche
+<2> Lorsqu'il n'y a plus de carottes, `grille.carotteProche` retourne `null` (pas de carotte)
+    et le lapin peut se reposer
+<3> Tester si la carotte est à droite du lapin
+<4> Si oui, déplacer le lapin d'une case à droite
+
+Faire de même pour les autres cas: la carotte est à gauche, en haut, en bas
+
+== Exercice 2
+
+L'objectif est de tirer partie des autres action possibles, le lapin peut:
+
+- Frapper un autre lapin, le lapin assomé doit se reposer pendant 3 tours.
+  Pour frapper un lapin, il doit être dans une cellule il doit être dans un cellule voisine.
+[source,java]
+----
+return frapper().enHaut();
+----
+- Sauter par dessus un autre lapin, pour passer devant, et avancer ainsi de 2 cases au lieu d'une seule.
+[source,java]
+----
+return sauter().aGauche();
+----
+
+Pour trouver le lapin le plus proche, c'est comme pour les carottes:
+[source,java]
+----
+Lapin autreLapin = grille.lapinProche(monLapin);
+----
+Pour savoir à quelle distance, il est de `monLapin`
+[source,java]
+----
+int distance = monLapin.distance(autreLapin);
+----
+Pour savoir, s'il y a un autre lapin à droite:
+[source,java]
+----
+Coord coordDroite = monLapin.coord.coordVers(Direction.DROITE);
+grille.contientLapin(coordDroite);
+----
+
+== Exercice 3
+
+L'objectif est d'essayer d'éviter les rochers, de les contourner...
+
+Pour savoir, s'il y a un rocher en haut:
+[source,java]
+----
+Coord coordHaut = monLapin.coord.coordVers(Direction.HAUT);
+grille.contientHaut(coordDroite);
+----
+
+== Exercice 4
+
+image::images/grille_exercice_4.png[Grille]
+
+Dans la grille ci-dessus:
+
+. Si un lapin est dans la case A, combien de pas doit-il faire pour arriver jusqu'à la carotte?
+  Ecrire le résultat dans la case A.
+. Si un lapin est dans la case B, quel est le plus court chemin qui mène à la carotte?
+  Ecrire le nombre de pas qu'il doit faire dans dans la case B.
+. Même question pour les cases C et D
+. Comment faire pour remplir rapidement toutes les cases de la grille avec la distance pour aller jusqu'à la carotte?
+. Remplir les cases qui entourent (haut, bas, gauche, droite) les A/B/C/D avec la distance depuis cette case voisine jusqu'à la carotte
+. Comment faire pour savoir dans quelle direction doit aller un lapin pour rejoindre au plus vite une carotte?
+
+
