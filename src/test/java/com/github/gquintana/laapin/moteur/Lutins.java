@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 public class Lutins {
     public static Lapin lapin(String nom, Joueur joueur, int x, int y) {
-        return new Lapin(new Coord(x, y), "Test", Color.BLUE, null, 0, joueur);
+        return new Lapin(new Coord(x, y), nom, Color.BLUE, null, 0, joueur);
     }
     public static Lapin lapin(String nom, int x, int y) {
         return lapin(nom, (monLapin, grille) -> null, x, y);

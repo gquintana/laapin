@@ -147,12 +147,12 @@ class GrilleFactory {
         String prefixConfig = "lapin." + indexLapin;
         String classConfig = prefixConfig + ".class";
         try {
-            Class<? extends Joueur> classeJoueur = configuration.getClass(classConfig);
+            Class<Joueur> classeJoueur = configuration.getClass(classConfig);
             Joueur joueur;
             if (classeJoueur == null || classeJoueur.equals(ScriptJoueur.class)) {
                 String scriptConfig = prefixConfig + ".script";
                 String nomScript = configuration.getString(scriptConfig);
-                if (scriptConfig == null) {
+                if (nomScript == null) {
                     throw new IllegalArgumentException("Configuration "+scriptConfig + " manquante");
                 }
                 joueur = new ScriptJoueur(nomScript);

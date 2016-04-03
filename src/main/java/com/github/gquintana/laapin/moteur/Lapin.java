@@ -43,4 +43,15 @@ public class Lapin extends Lutin {
     public int score() {
         return score;
     }
+
+    public String initiale() {
+        if (nom == null) {
+            return "?";
+        }
+        String initiale = nom.trim();
+        if (initiale.isEmpty()) {
+            return "?";
+        }
+        return initiale.substring(0, 1);
+    }
 }

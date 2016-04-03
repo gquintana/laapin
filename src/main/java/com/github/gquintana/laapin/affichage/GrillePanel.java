@@ -2,10 +2,13 @@ package com.github.gquintana.laapin.affichage;
 
 import com.github.gquintana.laapin.Configuration;
 import com.github.gquintana.laapin.moteur.*;
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
 
@@ -17,6 +20,10 @@ public class GrillePanel extends Group {
     public final Image imageLapin;
     private final Image imageCarotte;
     private final Image imageRocher;
+    /**
+     * Affiche le fond de la grille
+     */
+    private final boolean fond;
 
 
     public GrillePanel(Grille grille, Configuration configuration) throws IOException {
@@ -30,6 +37,7 @@ public class GrillePanel extends Group {
         imageLapin = loadImage("lapin");
         imageCarotte = loadImage("carotte");
         imageRocher = loadImage("rocher");
+        fond = configuration.getBoolean("grille.fond", true);
     }
 
     private Image loadImage(String name) {
@@ -38,28 +46,41 @@ public class GrillePanel extends Group {
 
     public void repaint() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setFill(Color.WHITE);
+        gc.setStroke(Color.BLACK);
         for (int x = 0; x < grille.taille.x; x++) {
             for (int y = 0; y < grille.taille.y; y++) {
-                gc.drawImage(imageFond, x * resolution, y * resolution, resolution, resolution);
+                if (fond) {
+                    gc.drawImage(imageFond, x * resolution, y * resolution, resolution, resolution);
+                } else {
+                    gc.fillRect(x * resolution, y * resolution, resolution, resolution);
+                    gc.strokeRect(x * resolution, y * resolution, resolution, resolution);
+                }
             }
         }
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
         for (Lutin lutin : grille.lutins) {
-            Image image = null;
             if (lutin instanceof Carotte) {
-                image = imageCarotte;
+                paintLutin(gc, lutin, imageCarotte);
             } else if (lutin instanceof Rocher) {
-                image = imageRocher;
+                paintLutin(gc, lutin, imageRocher);
             } else if (lutin instanceof Lapin) {
                 Lapin lapin = (Lapin) lutin;
                 int x0 = lapin.coord.x * resolution;
                 int y0 = lapin.coord.y * resolution;
                 gc.setStroke(lapin.couleur);
                 gc.strokeOval(x0, y0, resolution, resolution);
-                image = imageLapin;
+                paintLutin(gc, lutin, imageLapin);
+                gc.setFill(lapin.couleur);
+                gc.fillText(lapin.initiale(), x0+resolution/2, y0+3*resolution/4, resolution);
             }
-            if (image != null) {
-                gc.drawImage(image, lutin.coord.x * resolution, lutin.coord.y * resolution, resolution, resolution);
-            }
+        }
+    }
+
+    private void paintLutin(GraphicsContext gc, Lutin lutin, Image image) {
+        if (image != null) {
+            gc.drawImage(image, lutin.coord.x * resolution, lutin.coord.y * resolution, resolution, resolution);
         }
     }
 
