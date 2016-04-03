@@ -22,6 +22,7 @@ public class Moteur {
     private ScheduledFuture<?> scheduledFuture;
     private final MoteurListener listener;
     private final Map<TypeAction, ActionImpl> commandes;
+    private boolean estEnMarche = false;
 
     public Moteur(Configuration configuration, MoteurListener listener) {
         this.configuration = configuration;
@@ -39,16 +40,24 @@ public class Moteur {
         this.grille = grille;
     }
 
-    public void demarrer() {
+    public void initialiser() {
         int randomSeed = configuration.getInt("random", -1);
         this.random = randomSeed < 0 ? new Random() : new Random(randomSeed);
         GrilleFactory grilleFactory = new GrilleFactory(configuration, random);
         grille = grilleFactory.creerGrille();
-        scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(this::activerLapin, 0, configuration.getInt("moteur.periode", 2000), TimeUnit.MILLISECONDS);
-        listener.onDemarrer(grille);
+        listener.onInitialiser(grille);
+    }
+
+    public boolean estEnMarche() {
+        return estEnMarche;
+    }
+
+    public void demarrer() {
+        scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(this::avance, 0, configuration.getInt("moteur.periode", 2000), TimeUnit.MILLISECONDS);
         if (grille.lapins().isEmpty()) {
             listener.onArreter(grille);
         } else {
+            estEnMarche = true;
             initLapinIterator();
         }
     }
@@ -61,7 +70,7 @@ public class Moteur {
         lapinIterator = lapinList.iterator();
     }
 
-    private void activerLapin() {
+    public void avance() {
         if (lapinIterator == null || !lapinIterator.hasNext()) {
             initLapinIterator();
         }
@@ -105,10 +114,15 @@ public class Moteur {
         return resultatAction;
     }
 
-    public void arreter() {
+    public void stopper() {
         if (scheduledFuture != null && !scheduledFuture.isCancelled()) {
             scheduledFuture.cancel(false);
         }
+        estEnMarche = false;
+    }
+
+    public void arreter() {
+        stopper();
         scheduledExecutorService.shutdown();
         grille.lutinStream(Lapin.class).sorted(Comparator.comparingInt(Lapin::score).reversed())
                 .forEach(l -> System.out.println(l + " " + l.score()));
