@@ -25,6 +25,19 @@ public class ConfigurationTest {
         assertThat(configuration.getColor("couleur.hexa"), equalTo(Color.rgb(171, 192, 18)));
         assertThat(configuration.getColor("couleur.nom"), equalTo(Color.GREEN));
         assertThat(configuration.getColor("inconnu"), nullValue());
+        assertThat(configuration.getBoolean("booleen", false), is(true));
+        assertThat(configuration.getBoolean("inconnu", false), is(false));
     }
 
+    @Test
+    public void testLoadGet_Defaut() throws IOException {
+        // Given
+        Configuration configuration = new Configuration();
+        // When
+        configuration.load();
+        configuration.load(getClass().getResourceAsStream("configuration.properties"));
+        // Then
+        assertThat(configuration.getString("pardefaut"), is("Defaut"));
+        assertThat(configuration.getString("surcharge"), is("Surcharge"));
+    }
 }

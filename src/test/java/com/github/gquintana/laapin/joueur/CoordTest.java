@@ -43,4 +43,13 @@ public class CoordTest {
         // Then
         assertThat(directions, hasItems(Direction.HAUT, Direction.DROITE));
     }
+
+    @Test
+    public void testEstABuilder() {
+        assertTrue(new Coord(4, 2).estADroite().de(new Coord(2, 2)));
+        assertTrue(new Coord(1, 2).estAGauche().de(new Coord(2, 2)));
+        assertTrue(new Coord(2, 4).estEnHaut().de(new Coord(2, 2)));
+        assertTrue(new Coord(2, 1).estEnBas().de(new Coord(2, 2)));
+    }
+
 }

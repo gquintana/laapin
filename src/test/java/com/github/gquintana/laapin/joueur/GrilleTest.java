@@ -4,8 +4,7 @@ import org.junit.Test;
 
 import java.util.stream.Collectors;
 
-import static com.github.gquintana.laapin.joueur.Lutins.carotte;
-import static com.github.gquintana.laapin.joueur.Lutins.lapin;
+import static com.github.gquintana.laapin.joueur.Lutins.*;
 import static java.util.Arrays.asList;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
@@ -13,16 +12,17 @@ import static org.junit.Assert.assertThat;
 public class GrilleTest {
     private final Lapin moi = lapin("Moi", 2, 2);
     /**
-     * 4L
+     * 4L   R
      * 3  C
      * 2  L
      * 1  L
      * 0    C
-     * 01234
+     * +01234
      */
     private final Grille grille = new Grille(new Coord(5, 5),
             asList(moi, lapin("Moche", 2, 1), lapin("Méchant", 0, 4),
-                    carotte(4, 0), carotte(2, 3)));
+                    carotte(4, 0), carotte(2, 3),
+                    rocher(4,4)));
 
     @Test
     public void testCarotte() {
@@ -41,6 +41,12 @@ public class GrilleTest {
         assertThat(grille.contientLapin(new Coord(2, 1)), is(true));
         assertThat(grille.contientLapin(new Coord(1, 2)), is(false));
         assertThat(grille.lutin(new Coord(2, 1)), instanceOf(Lapin.class));
+    }
+    @Test
+    public void testRocher() {
+        assertThat(grille.contientRocher(new Coord(4, 4)), is(true));
+        assertThat(grille.contientRocher(new Coord(1, 2)), is(false));
+        assertThat(grille.lutin(new Coord(4, 4)), instanceOf(Rocher.class));
     }
 
     @Test

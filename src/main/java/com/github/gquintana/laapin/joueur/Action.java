@@ -1,5 +1,7 @@
 package com.github.gquintana.laapin.joueur;
 
+import java.util.Objects;
+
 public class Action {
     public final TypeAction type;
     public final Direction direction;
@@ -55,5 +57,17 @@ public class Action {
         return new Action(TypeAction.SE_REPOSER, null);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Action action = (Action) o;
+        return type == action.type &&
+                direction == action.direction;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, direction);
+    }
 }
