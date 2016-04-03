@@ -8,6 +8,7 @@ public class Demo2Joueur implements Joueur {
         Carotte carotte = grille.carotteProche(monLapin);
         if (carotte != null) {
             Distancier distancierCarotte = grille.distancierVers(carotte);
+            int distanceCarotte = distancierCarotte.distance(monLapin);
             Direction directionCarotte = distancierCarotte.directionDepuis(monLapin);
             return avancer().vers(directionCarotte);
         }

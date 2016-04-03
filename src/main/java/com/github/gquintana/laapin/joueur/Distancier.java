@@ -84,4 +84,8 @@ public class Distancier {
     public Direction directionDepuis(Lutin lutin) {
         return directionDepuis(lutin.coord);
     }
+
+    public int distance(Lutin lutin) {
+        return distance(lutin.coord);
+    }
 }

@@ -24,6 +24,9 @@ if (carotte == null) {                            // <2>
 
 Faire de même pour les autres cas: la carotte est à gauche, en haut, en bas
 
+    Participer à une compétition
+
+<<<
 == Exercice 2
 
 L'objectif est de tirer partie des autres action possibles, le lapin peut:
@@ -57,6 +60,9 @@ Coord coordDroite = monLapin.coord.coordVers(Direction.DROITE);
 grille.contientLapin(coordDroite);
 ----
 
+    Participer à une compétition
+
+
 == Exercice 3
 
 L'objectif est d'essayer d'éviter les rochers, de les contourner...
@@ -68,6 +74,7 @@ Coord coordHaut = monLapin.coord.coordVers(Direction.HAUT);
 grille.contientHaut(coordDroite);
 ----
 
+<<<
 == Exercice 4
 
 image::images/grille_exercice_4.png[Grille]
@@ -77,10 +84,30 @@ Dans la grille ci-dessus:
 . Si un lapin est dans la case A, combien de pas doit-il faire pour arriver jusqu'à la carotte?
   Ecrire le résultat dans la case A.
 . Si un lapin est dans la case B, quel est le plus court chemin qui mène à la carotte?
-  Ecrire le nombre de pas qu'il doit faire dans dans la case B.
-. Même question pour les cases C et D
+  - Ecrire le nombre de pas qu'il doit faire dans dans la case B.
+  - Y a-t-il qu'un seul chemin pour aller de la case B à la carotte?
+  - Tous les chemins ont-ils la même longueur?
+. Même question pour les cases C et D, inscrire le nombre de pas dans la case correspondante.
+. Quelles sont les cases à une distance de 1 pas de la carotte? De 2 pas? De 3 pas?
 . Comment faire pour remplir rapidement toutes les cases de la grille avec la distance pour aller jusqu'à la carotte?
 . Remplir les cases qui entourent (haut, bas, gauche, droite) les A/B/C/D avec la distance depuis cette case voisine jusqu'à la carotte
 . Comment faire pour savoir dans quelle direction doit aller un lapin pour rejoindre au plus vite une carotte?
 
+<<<
+== Exercice 5
 
+L'objectif est d'utiliser l'algorithme imaginé à l'étape précédente:
+
+[source,java]
+----
+Distancier distancier = grille.distancierVers(carotte);     // <1>
+int distance = distancier.distance(monLapin);               // <2>
+Direction direction = distancier.directionDepuis(monLapin); // <3>
+----
+
+<1> Remplir la grille avec les distances pour aller jusqu'à la carotte.
+    A l'issue de cette opération, `distancier` contient les distances pour aller vers la carotte en partant depuis n'importe quelle case du plateau.
+<2> Retourne la distance pour aller jusqu'à la carotte à partir d'une case
+<3> Détermine la (ou une) direction pour aller vers la carotte en empruntant le plus court chemin
+
+    Participer à une compétition
