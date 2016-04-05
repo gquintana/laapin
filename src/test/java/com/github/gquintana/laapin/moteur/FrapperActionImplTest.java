@@ -10,7 +10,7 @@ import static com.github.gquintana.laapin.moteur.Lutins.lapin;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertThat;
 
 public class FrapperActionImplTest {
@@ -51,7 +51,7 @@ public class FrapperActionImplTest {
         // Then
         assertThat(lapin.coord.x, is(4));
         assertThat(lapin.coord.y, is(3));
-        assertThat(mechant.fatigue,  greaterThan(0));
+        assertThat(mechant.energie(),  lessThan(0));
     }
 
     @Test

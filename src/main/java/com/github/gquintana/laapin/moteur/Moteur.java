@@ -71,7 +71,7 @@ public class Moteur {
 
     ResultatAction reflechir(Lapin leLapin) {
         Action action = null;
-        boolean seReposer = leLapin.fatigue > 0;
+        boolean seReposer = leLapin.estFatigue();
         String messageErreur = null;
         // Détermine l'action a effectuer
         if (!seReposer) {
@@ -96,7 +96,7 @@ public class Moteur {
             resultatAction = new ResultatAction(leLapin, resultatAction.action, messageErreur);
         }
         System.out.println(String.format("Lapin %s: %s %s %s", leLapin.nom, action.type, action.direction, resultatAction.message));
-        leLapin.derniereAction = action;
+        leLapin.agir(action);
         listener.onAgir(grille, leLapin, resultatAction);
         if (!grille.lutinStream(Carotte.class).findAny().isPresent()) {
             arreter();

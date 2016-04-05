@@ -67,7 +67,7 @@ public class MoteurTest {
         // Then
         assertThat(lapin.coord.x, is(2));
         assertThat(lapin.coord.y, is(2));
-        assertThat(grille.lapins().get(1).fatigue, is(2));
+        assertThat(grille.lapins().get(1).energie(), is(-2));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class MoteurTest {
     @Test
     public void testReflechir_Fatigue() {
         // Given
-        lapin.fatigue = 2;
+        lapin.recevoirCoup();
         // when
         moteur.reflechir(lapin);
         // Then

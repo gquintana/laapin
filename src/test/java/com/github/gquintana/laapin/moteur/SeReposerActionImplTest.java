@@ -18,14 +18,14 @@ public class SeReposerActionImplTest {
     public void testExecuter_Fatigue() {
         // Given
         Lapin lapin = lapin("Test", 2, 3);
-        lapin.fatigue = 2;
+        lapin.recevoirCoup();
         Grille grille = new Grille(new Coord(5, 5), singletonList(lapin));
         // When
         commande.executer(lapin, grille, new Action(TypeAction.SE_REPOSER, Direction.BAS));
         // Then
         assertThat(lapin.coord.x, is(2));
         assertThat(lapin.coord.y, is(3));
-        assertThat(lapin.fatigue, is(1));
+        assertThat(lapin.energie(), is(-1));
 
     }
     @Test
@@ -38,7 +38,7 @@ public class SeReposerActionImplTest {
         // Then
         assertThat(lapin.coord.x, is(2));
         assertThat(lapin.coord.y, is(3));
-        assertThat(lapin.fatigue, is(0));
+        assertThat(lapin.energie(), is(0));
 
     }
 }
