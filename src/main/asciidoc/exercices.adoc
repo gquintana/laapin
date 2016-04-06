@@ -29,31 +29,31 @@ Faire de même pour les autres cas: la carotte est à gauche, en haut, en bas
 <<<
 == Exercice 2
 
-L'objectif est de tirer partie des autres action possibles, le lapin peut:
+L'objectif est de tirer parti des autres actions possibles, le lapin peut:
 
-- Frapper un autre lapin, le lapin assomé doit se reposer pendant 3 tours.
-  Pour frapper un lapin, il doit être dans une cellule il doit être dans un cellule voisine.
+- Frapper un autre lapin : le lapin assommé doit se reposer pendant 3 tours.
+  Pour frapper un lapin, il doit être dans un cellule voisine.
 [source,java]
 ----
 return frapper().enHaut();
 ----
-- Sauter par dessus un autre lapin, pour passer devant, et avancer ainsi de 2 cases au lieu d'une seule.
+- Sauter par dessus un autre lapin : pour passer devant, et avancer ainsi de 2 cases au lieu d'une seule.
 [source,java]
 ----
 return sauter().aGauche();
 ----
 
-Pour trouver le lapin le plus proche, c'est comme pour les carottes:
+Pour trouver le lapin le plus proche, c'est comme pour les carottes :
 [source,java]
 ----
 Lapin autreLapin = grille.lapinProche(monLapin);
 ----
-Pour savoir à quelle distance il est de `monLapin`
+Pour savoir à quelle distance il est de `monLapin` :
 [source,java]
 ----
 int distance = monLapin.distance(autreLapin);
 ----
-Pour savoir dans quelle direction il est de `monLapin`, et lui sauter par dessus:
+Pour savoir dans quelle direction il est de `monLapin`, et lui sauter par dessus :
 [source,java]
 ----
 Direction direction = monLapin.directionVers(autreLapin);
@@ -61,7 +61,7 @@ return sauter().vers(direction);
 ----
 `direction` peut prendre les valeurs `HAUT`, `BAS`, `GAUCHE`, `DROITE`
 
-Pour savoir, s'il y a un autre lapin à droite:
+Pour savoir, s'il y a un autre lapin à droite :
 [source,java]
 ----
 Coord coordDroite = monLapin.coordVers(Direction.DROITE);
@@ -75,14 +75,14 @@ if (grille.contientLapin(coordDroite)) { ... }
 
 L'objectif est d'essayer d'éviter les rochers, de les contourner...
 
-Pour savoir, s'il y a un rocher en haut:
+Pour savoir, s'il y a un rocher en haut :
 [source,java]
 ----
 Coord coordHaut = monLapin.coordVers(Direction.HAUT);
 if (grille.contientRocher(coordDroite)) { ... }
 ----
 
-Pour savoir, s'il y a un obstacle (rocher, lapin ou bordure du terrain) à gauche:
+Pour savoir, s'il y a un obstacle (rocher, lapin ou bordure du terrain) à gauche :
 [source,java]
 ----
 Coord coordGauche = monLapin.coordVers(Direction.GAUCHE);
@@ -95,24 +95,24 @@ if (grille.contientObstacle(coordDroite)) { ... }
 
 image::images/grille_exercice_4.png[Grille]
 
-Dans la grille ci-dessus:
+Dans la grille ci-dessus :
 
-. Si un lapin est dans la case A, combien de pas doit-il faire pour arriver jusqu'à la carotte?
+. Si un lapin est dans la case A, combien de pas doit-il faire pour arriver jusqu'à la carotte ?
   Ecrire le résultat dans la case A.
-. Si un lapin est dans la case B, quel est le plus court chemin qui mène à la carotte?
+. Si un lapin est dans la case B, quel est le plus court chemin qui mène à la carotte ?
   - Ecrire le nombre de pas qu'il doit faire dans dans la case B.
-  - Y a-t-il qu'un seul chemin pour aller de la case B à la carotte?
-  - Tous les chemins ont-ils la même longueur?
-. Même question pour les cases C et D, inscrire le nombre de pas dans la case correspondante.
-. Quelles sont les cases à une distance de 1 pas de la carotte? De 2 pas? De 3 pas?
-. Comment faire pour remplir rapidement toutes les cases de la grille avec la distance pour aller jusqu'à la carotte?
-. Remplir les cases qui entourent (haut, bas, gauche, droite) les cases A/B/C/D avec la distance depuis cette case voisine jusqu'à la carotte
-. Comment faire pour savoir dans quelle direction doit aller un lapin pour rejoindre au plus vite une carotte?
+  - N'y a-t-il qu'un seul chemin pour aller de la case B à la carotte ?
+  - Tous les chemins ont-ils la même longueur ?
+. Même question pour les cases C et D : inscrire le nombre de pas dans la case correspondante.
+. Quelles sont les cases à une distance de 1 pas de la carotte ? De 2 pas ? De 3 pas ?
+. Comment faire pour remplir rapidement toutes les cases de la grille avec la distance pour aller jusqu'à la carotte ?
+. Remplir les cases qui entourent (haut, bas, gauche, droite) les cases A/B/C/D avec la distance depuis cette case voisine jusqu'à la carotte.
+. Comment faire pour savoir dans quelle direction doit aller un lapin pour rejoindre au plus vite une carotte ?
 
 <<<
 == Exercice 5
 
-L'objectif est d'utiliser l'algorithme imaginé à l'étape précédente:
+L'objectif est d'utiliser l'algorithme imaginé à l'étape précédente :
 
 [source,java]
 ----
