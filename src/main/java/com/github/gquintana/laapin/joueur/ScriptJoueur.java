@@ -55,13 +55,12 @@ public class ScriptJoueur implements Joueur {
 
     @Override
     public Action reflechir(Lapin monLapin, Grille grille) {
-        Object result;
         try {
             if (script != null) {
-                result = script.eval(preparerBindings(monLapin, grille));
+                script.eval(preparerBindings(monLapin, grille));
             } else {
                 try (Reader reader = Resources.openReader(nom)) {
-                    result = moteur.eval(reader, preparerBindings(monLapin, grille));
+                    moteur.eval(reader, preparerBindings(monLapin, grille));
                 } catch (IOException e) {
                     throw new IllegalStateException("Erreur lecture script " + nom, e);
                 }

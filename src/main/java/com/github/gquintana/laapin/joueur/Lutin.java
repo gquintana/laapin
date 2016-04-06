@@ -13,21 +13,6 @@ public class Lutin {
         this.coord = coord;
     }
 
-    public static class DirectionPredicateBuilder {
-        private final Lutin source;
-        private final Direction direction;
-
-        public DirectionPredicateBuilder(Lutin source, Direction direction) {
-            this.source = source;
-            this.direction = direction;
-        }
-
-        public boolean de(Lutin cible) {
-            boolean b = direction.estA(source.coord, cible.coord);
-            System.out.println(source + " est à " + direction + " de " + cible + ": " + b);
-            return b;
-        }
-    }
 
     /**
      * Teste si le lutin est en haut/bas/gauche/droite d'un autre lutin
@@ -72,6 +57,13 @@ public class Lutin {
     }
 
     /**
+     * Calcule une direction pour aller vers un autre lutin
+     */
+    public Direction directionVers(Lutin lutin) {
+        return coord.directionsVers(lutin.coord).get(0);
+
+    }
+    /**
      * Calcule la ou les directions pour aller vers un autre lutin
      */
     public List<Direction> directionsVers(Lutin lutin) {
@@ -82,5 +74,19 @@ public class Lutin {
     @Override
     public String toString() {
         return getClass().getSimpleName() + " " + coord;
+    }
+
+    /**
+     * Calcule les coordonnées depuis ce lutin, dans une direction donnée et un nombre de cases
+     */
+    public Coord coordVers(Direction direction, int distance) {
+        return direction.de(this, distance);
+    }
+
+    /**
+     * Calcule les coordonnées depuis ce lutin, dans une direction donnée
+     */
+    public Coord coordVers(Direction direction) {
+        return direction.de(this);
     }
 }

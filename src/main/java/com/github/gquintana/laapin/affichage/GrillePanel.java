@@ -1,6 +1,8 @@
 package com.github.gquintana.laapin.affichage;
 
 import com.github.gquintana.laapin.Configuration;
+import com.github.gquintana.laapin.joueur.Coord;
+import com.github.gquintana.laapin.joueur.Distancier;
 import com.github.gquintana.laapin.moteur.*;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
@@ -49,11 +51,18 @@ public class GrillePanel extends Group {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         gc.setStroke(Color.BLACK);
+        Carotte carotte = (Carotte) grille.lutins.stream().filter(l -> l instanceof Carotte).findAny().orElse(null);
+        Distancier distancier = grille.photographier().distancierVers(carotte.coord);
+        double distanceMax = distancier.distanceMax();
         for (int x = 0; x < grille.taille.x; x++) {
             for (int y = 0; y < grille.taille.y; y++) {
                 if (fond) {
                     gc.drawImage(imageFond, x * resolution, y * resolution, resolution, resolution);
                 } else {
+                    double d = Math.min(1.0D, Math.max(0.0D, 1.0D - ((double) distancier.distance(new Coord(x, y)))/ distanceMax));
+                    System.out.println(((double) distancier.distance(new Coord(x, y)))/ distanceMax+" "+d);
+                    Color color = new Color(d,d,d,1.0D);
+                    gc.setFill(color);
                     gc.fillRect(x * resolution, y * resolution, resolution, resolution);
                     gc.strokeRect(x * resolution, y * resolution, resolution, resolution);
                 }

@@ -50,6 +50,41 @@ public class Coord {
     }
 
     /**
+     * Teste si le cellule est en haut/bas/gauche/droite d'un autre cellule
+     */
+    public DirectionPredicateBuilder estA(Direction direction) {
+        return new DirectionPredicateBuilder(this, direction);
+    }
+
+    /**
+     * Teste si le cellule est à droite d'un autre cellule
+     */
+    public DirectionPredicateBuilder estADroite() {
+        return estA(Direction.DROITE);
+    }
+
+    /**
+     * Teste si le cellule est à gauche d'un autre cellule
+     */
+    public DirectionPredicateBuilder estAGauche() {
+        return estA(Direction.GAUCHE);
+    }
+
+    /**
+     * Teste si le cellule est en haut d'un autre cellule
+     */
+    public DirectionPredicateBuilder estEnHaut() {
+        return estA(Direction.HAUT);
+    }
+
+    /**
+     * Teste si le cellule est en bas d'un autre cellule
+     */
+    public DirectionPredicateBuilder estEnBas() {
+        return estA(Direction.BAS);
+    }
+
+    /**
      * Calcule la ou les direction pour aller vers la cellule cible
      */
     List<Direction> directionsVers(final Coord cible) {

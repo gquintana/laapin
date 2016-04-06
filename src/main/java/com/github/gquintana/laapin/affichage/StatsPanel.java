@@ -1,5 +1,7 @@
 package com.github.gquintana.laapin.affichage;
 
+import com.github.gquintana.laapin.joueur.Direction;
+import com.github.gquintana.laapin.joueur.TypeAction;
 import com.github.gquintana.laapin.moteur.Lapin;
 import com.github.gquintana.laapin.moteur.ResultatAction;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -22,22 +24,14 @@ public class StatsPanel extends VBox {
 
     public StatsPanel() {
         lapinsTable = new TableView<>(lapinsList);
-        TableColumn<Lapin, String> nomLapinColumn = new TableColumn<>("Lapin");
-        nomLapinColumn.setCellValueFactory(new FieldValueFactory<>("nom"));
-        TableColumn<Lapin, Integer> scoreLapinColumn = new TableColumn<>("Score");
-        scoreLapinColumn.setCellValueFactory(new FieldValueFactory<>("score"));
-        lapinsTable.getColumns().addAll(nomLapinColumn, scoreLapinColumn);
+        lapinsTable.getColumns().add(tableColumn("Lapin", "nom", String.class));
+        lapinsTable.getColumns().add(tableColumn("Score", "score", Integer.class));
 
         actionsTable = new TableView<>(actionsList);
-        TableColumn<ResultatAction, String> lapinActionColumn = new TableColumn<>("Lapin");
-        lapinActionColumn.setCellValueFactory(new FieldValueFactory<>("lapin.nom"));
-        TableColumn<ResultatAction, Integer> typeActionColumn = new TableColumn<>("Action");
-        typeActionColumn.setCellValueFactory(new FieldValueFactory<>("action.type"));
-        TableColumn<ResultatAction, Integer> directionActionColumn = new TableColumn<>("Direction");
-        directionActionColumn.setCellValueFactory(new FieldValueFactory<>("action.direction"));
-        TableColumn<ResultatAction, Integer> messageActionColumn = new TableColumn<>("Message");
-        messageActionColumn.setCellValueFactory(new FieldValueFactory<>("message"));
-        actionsTable.getColumns().addAll(lapinActionColumn, typeActionColumn, directionActionColumn, messageActionColumn);
+        actionsTable.getColumns().add(tableColumn("Lapin", "lapin.nom", String.class));
+        actionsTable.getColumns().add(tableColumn("Action", "action.type", TypeAction.class));
+        actionsTable.getColumns().add(tableColumn("Direction", "action.direction", Direction.class));
+        actionsTable.getColumns().add(tableColumn("Message", "message", String.class));
 
         getChildren().addAll(lapinsTable, actionsTable);
     }
@@ -51,10 +45,17 @@ public class StatsPanel extends VBox {
         actionsTable.scrollTo(actionsList.size() - 1);
     }
 
+    private static <S, T> TableColumn<S, T> tableColumn(String titre, String champ, Class<T> type) {
+        TableColumn<S, T> tableColumn = new TableColumn<>(titre);
+        tableColumn.setCellValueFactory(new FieldValueFactory<>(champ, type));
+        return tableColumn;
+    }
     private static class FieldValueFactory<S, T> implements Callback<TableColumn.CellDataFeatures<S,T>, ObservableValue<T>> {
         private final String[] fieldPath;
+        private final Class<T> fieldType;
 
-        public FieldValueFactory(String name) {
+        public FieldValueFactory(String name, Class<T> fieldType) {
+            this.fieldType = fieldType;
             this.fieldPath = name.split("\\.");
         }
 
@@ -81,7 +82,7 @@ public class StatsPanel extends VBox {
                     }
                 }
             }
-            return new ReadOnlyObjectWrapper<>((T) current);
+            return new ReadOnlyObjectWrapper<>(fieldType.cast(current));
         }
     }
 }

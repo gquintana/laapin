@@ -147,6 +147,7 @@ class GrilleFactory {
         String prefixConfig = "lapin." + indexLapin;
         String classConfig = prefixConfig + ".class";
         try {
+            @SuppressWarnings("unchecked")
             Class<Joueur> classeJoueur = configuration.getClass(classConfig);
             Joueur joueur;
             if (classeJoueur == null || classeJoueur.equals(ScriptJoueur.class)) {

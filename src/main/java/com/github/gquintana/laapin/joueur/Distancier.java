@@ -88,4 +88,8 @@ public class Distancier {
     public int distance(Lutin lutin) {
         return distance(lutin.coord);
     }
+
+    public int distanceMax() {
+        return Arrays.stream(distances).flatMapToInt(Arrays::stream).filter(d -> d <= (grille.taille.x + grille.taille.y)).max().orElse(0);
+    }
 }
