@@ -29,7 +29,7 @@ Faire de même pour les autres cas: la carotte est à gauche, en haut, en bas
 <<<
 == Exercice 2
 
-L'objectif est de tirer partie des autres action possibles, le lapin peut:
+L'objectif est de tirer partie des autres actions possibles, le lapin peut:
 
 - Frapper un autre lapin, le lapin assomé doit se reposer pendant 3 tours.
   Pour frapper un lapin, il doit être dans une cellule il doit être dans un cellule voisine.

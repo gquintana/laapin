@@ -33,6 +33,8 @@ lapin.1.nom=Bill
 lapin.1.couleur=BLUE
 ```
 
+Voir le [détail](src/main/asciidoc/configuration.adoc)
+
 ## Implémentation
 
 ### En Java
