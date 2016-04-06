@@ -1,0 +1,58 @@
+= Configuration
+
+== Configuration du jeu
+
+La configuration du jeu est un fichier properties (`laapin.properties` par exemple).
+
+[width="100%",options="header"]
+|=======
+|Nom  |Défaut  |Description     |
+|`random`  |   | Graine pour la génération de grille aléatoire   |
+|`grille.taille.x`  |   |Largeur de la grille en cases  |
+|`grille.taille.y`  |   |Hauteur de la grille en cases  |
+|`grille.resolution`  |   64|Taille des cases: 16, 32 ou 64 pixels   |
+|`grille.fond`  | `true` |Affiche de l'herbe, ou bien les cases de la grille  |
+|`grille.modele`  |   |Modèle de grille non aléatoire  |
+|`moteur.periode`  |   2000|Nombre de millisecondes entre les actions des joueurs. Vitesse d'animation   |
+|`carottes`  |   |Nombre de carottes à placer sur la grille   |
+|`lapins`  |   |Nombre de lapins à placer sur la grille   |
+|`rochers`  |   |Nombre de rochers à placer sur la grille   |
+|`lapin.X.class`  |  |Classe Java utilisé comme implémentation du joueur X  (X commence à 0)  |
+|`lapin.X.script`  |    |Script JS ou autre utilisé comme implémentation du joueur X  (X commence à 0)  |
+|`lapin.X.nom` |    |Nom du joueur X  (X commence à 0)  |
+|`lapin.X.couleur`  |   |Couleur du joueur X  (X commence à 0). Utiliser les noms habituels (en anglais), ou le code Hexa préfixé par #  |
+|=======
+
+Les fichiers de configuration, de modèle de grille et de scripts joueurs peuvent être chargés:
+
+- Depuis le système de fichier: `file:///mon/chemin/joueur.js`
+- Depuis le classpath:
+    * A partir de la racine: `classpath:/laapin.properties`
+    * A partir de le package laapin: `classpath:moteur/grille.txt`
+
+
+== Modèle de la grille
+
+Un fichier de modèle de grille est un fichier text (grille.txt par exemple).
+
+[source]
+----
+L----R---C
+|    R   |
+|    R   |
+|        |
+RRR      C
+C      RRR
+|        |
+|   R    |
+|   R    |
+C---R----L
+----
+
+[options="header"]
+|=======
+|Lettre |Description     |
+|C      |Carotte         |
+|R      |Rocher          |
+|L      |Lapin           |
+|=======
