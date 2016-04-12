@@ -12,6 +12,8 @@ La configuration du jeu est un fichier properties (`laapin.properties` par exemp
 |`grille.taille.y`  |   |Hauteur de la grille en cases  |
 |`grille.resolution`  |   64|Taille des cases: 16, 32 ou 64 pixels   |
 |`grille.fond`  | `true` |Affiche de l'herbe, ou bien les cases de la grille  |
+|`grille.coordonnees`  | `false` |Affiche les coordonnées des cases de la grille  |
+|`grille.distancier`  | `false` |Colore les cases en fonction de la distance jusqu'à une carotte. Représente visuellement un distancier.  |
 |`grille.modele`  |   |Modèle de grille non aléatoire  |
 |`moteur.periode`  |   2000|Nombre de millisecondes entre les actions des joueurs. Vitesse d'animation   |
 |`carottes`  |   |Nombre de carottes à placer sur la grille   |

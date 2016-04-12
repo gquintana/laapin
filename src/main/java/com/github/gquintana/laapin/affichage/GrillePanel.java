@@ -26,11 +26,21 @@ public class GrillePanel extends Group {
      * Affiche le fond de la grille
      */
     private final boolean fond;
+    /**
+     * Affiche les coordonnées des cases
+     */
+    private final boolean coordonnees;
+    /**
+     * Affiche le distancier
+     */
+    private final boolean distancier;
 
 
     public GrillePanel(Grille grille, Configuration configuration) throws IOException {
         this.grille = grille;
         this.resolution = configuration.getInt("grille.resolution", 64);
+        this.coordonnees = configuration.getBoolean("grille.coordonnees", false);
+        this.distancier = configuration.getBoolean("grille.distancier", false);
         int width = grille.taille.x * resolution;
         int height = grille.taille.y * resolution;
         canvas = new Canvas(width, height);
@@ -51,20 +61,33 @@ public class GrillePanel extends Group {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         gc.setStroke(Color.BLACK);
-        Carotte carotte = (Carotte) grille.lutins.stream().filter(l -> l instanceof Carotte).findAny().orElse(null);
-        Distancier distancier = grille.photographier().distancierVers(carotte.coord);
-        double distanceMax = distancier.distanceMax();
+        Distancier leDistancier = null;
+        Double distanceMax = null;
+        if (distancier) {
+            Carotte carotte = (Carotte) grille.lutins.stream().filter(l -> l instanceof Carotte).findAny().orElse(null);
+            if (carotte != null) {
+                leDistancier = grille.photographier().distancierVers(carotte.coord);
+                distanceMax = (double) leDistancier.distanceMax();
+            }
+        }
         for (int x = 0; x < grille.taille.x; x++) {
             for (int y = 0; y < grille.taille.y; y++) {
                 if (fond) {
-                    gc.drawImage(imageFond, x * resolution, y * resolution, resolution, resolution);
+                    gc.drawImage(imageFond, coordX(x), coordY(y), resolution, resolution);
                 } else {
-                    double d = Math.min(1.0D, Math.max(0.0D, 1.0D - ((double) distancier.distance(new Coord(x, y)))/ distanceMax));
-                    System.out.println(((double) distancier.distance(new Coord(x, y)))/ distanceMax+" "+d);
-                    Color color = new Color(d,d,d,1.0D);
-                    gc.setFill(color);
-                    gc.fillRect(x * resolution, y * resolution, resolution, resolution);
-                    gc.strokeRect(x * resolution, y * resolution, resolution, resolution);
+                    Color couleurFond = Color.WHITE;
+                    if (leDistancier != null) {
+                        double d = Math.min(1.0D, Math.max(0.0D, 1.0D - ((double) leDistancier.distance(new Coord(x, y))) / distanceMax));
+                        System.out.println(((double) leDistancier.distance(new Coord(x, y))) / distanceMax + " " + d);
+                        couleurFond = new Color(d, d, d, 1.0D);
+                    }
+                    gc.setFill(couleurFond);
+                    gc.fillRect(coordX(x), coordY(y), resolution, resolution);
+                    gc.strokeRect(coordX(x), coordY(y), resolution, resolution);
+                }
+                if (coordonnees) {
+                    gc.setFill(Color.DARKGRAY);
+                    gc.fillText(x + "," + y, coordX(x) + 16, coordY(y) + 8, resolution / 2);
                 }
             }
         }
@@ -77,20 +100,28 @@ public class GrillePanel extends Group {
                 paintLutin(gc, lutin, imageRocher);
             } else if (lutin instanceof Lapin) {
                 Lapin lapin = (Lapin) lutin;
-                int x0 = lapin.coord.x * resolution;
-                int y0 = lapin.coord.y * resolution;
+                double x0 = coordX(lapin.coord.x);
+                double y0 = coordY(lapin.coord.y);
                 gc.setStroke(lapin.couleur);
                 gc.strokeOval(x0, y0, resolution, resolution);
                 paintLutin(gc, lutin, imageLapin);
                 gc.setFill(lapin.couleur);
-                gc.fillText(lapin.initiale(), x0+resolution/2, y0+3*resolution/4, resolution);
+                gc.fillText(lapin.initiale(), x0 + resolution / 2, y0 + 3 * resolution / 4, resolution);
             }
         }
     }
 
+    private double coordX(int x) {
+        return x * resolution;
+    }
+
+    private double coordY(int y) {
+        return (grille.taille.y - y - 1) * resolution;
+    }
+
     private void paintLutin(GraphicsContext gc, Lutin lutin, Image image) {
         if (image != null) {
-            gc.drawImage(image, lutin.coord.x * resolution, lutin.coord.y * resolution, resolution, resolution);
+            gc.drawImage(image, coordX(lutin.coord.x), coordY(lutin.coord.y), resolution, resolution);
         }
     }
 
