@@ -54,7 +54,9 @@ public class Distancier {
             int d = Integer.MAX_VALUE;
             for (Coord v : coordVoisines(c)) {
                 if (distance(v) == Integer.MAX_VALUE) { // A calculer
-                    aCalculer.add(v);
+                    if (!aCalculer.contains(v)) {
+                        aCalculer.add(v);
+                    }
                 } else {
                     d = Math.min(d, distance(v)); // Déjà calculée
                 }
