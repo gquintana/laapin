@@ -6,6 +6,11 @@ import com.github.gquintana.laapin.moteur.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -23,10 +28,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Laapin");
+        BorderPane pane = new BorderPane();
         grillePanel = new GrillePanel(grille, configuration);
         statsPanel = new StatsPanel();
+        createToolbar(pane);
         HBox root = new HBox(statsPanel, grillePanel);
-        Scene scene = new Scene(root);
+        pane.setCenter(root);
+        Scene scene = new Scene(pane);
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(grillePanel.imageLapin);
         primaryStage.setOnCloseRequest(event -> {
@@ -36,6 +44,43 @@ public class Main extends Application {
         });
         primaryStage.show();
         primaryStage.toFront();
+    }
+
+    private void createToolbar(BorderPane pane) {
+        Button btnPlayPause = createButton("icon-play.png");
+        btnPlayPause.setOnAction((event) -> {
+            if (moteur.estEnMarche()) {
+                moteur.stopper();
+            } else {
+                moteur.demarrer();
+            }
+            Platform.runLater(() -> {
+                btnPlayPause.setGraphic(moteur.estEnMarche() ?
+                        createImage("icon-pause.png") : createImage("icon-play.png"));
+            });
+        });
+        Button btnStep = createButton("icon-step.png");
+        btnStep.setOnAction((event) -> {
+            moteur.avance();
+        });
+        Button btnRewind = createButton("icon-rewind.png");
+        ToolBar toolBar = new ToolBar();
+        toolBar.getItems().addAll(
+                btnPlayPause,
+                btnStep,
+                btnRewind
+        );
+        pane.setTop(toolBar);
+    }
+
+    private Button createButton(String resourceName) {
+        Button button = new Button();
+        button.setGraphic(createImage(resourceName));
+        return button;
+    }
+
+    private ImageView createImage(String resourceName) {
+        return new ImageView(new Image(getClass().getResourceAsStream("affichage/" + resourceName)));
     }
 
     @Override
@@ -51,7 +96,7 @@ public class Main extends Application {
         }
         moteur = new Moteur(configuration, new MoteurListener() {
             @Override
-            public void onDemarrer(Grille grille) {
+            public void onInitialiser(Grille grille) {
                 Main.this.grille = grille;
                 Platform.runLater(() -> {
                     mettreAJourStatsPanel(grille, null);
@@ -74,7 +119,7 @@ public class Main extends Application {
                 });
             }
         });
-        moteur.demarrer();
+        moteur.initialiser();
     }
 
     private void mettreAJourGrillePanel() {

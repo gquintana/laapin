@@ -20,7 +20,7 @@ public class MoteurTest {
     private final Configuration configuration = new Configuration();
     private final Moteur moteur = new Moteur(configuration, new MoteurListener() {
         @Override
-        public void onDemarrer(Grille grille) {
+        public void onInitialiser(Grille grille) {
 
         }
 
