@@ -4,7 +4,7 @@
 
 image::images/grille_introduction.png[Grille,640,640]
 
-Le plateau de jeu est constitué d'une grille divisée en cases:
+Le plateau de jeu est constitué d'une grille divisée en cases{nbsp}:
 [source,java]
 ----
 int largeur = grille.taille.x; // <1>
@@ -13,7 +13,7 @@ int hauteur = grille.taille.y; // <2>
 <1> Nombre de cases en largeur: 10 dans l'exemple
 <2> Nombre de cases en hauteur: 10 dans l'exemple
 
-On trouve dans les cases de cette grille, des lapins (toi ou un adversaire) et des carottes:
+On trouve dans les cases de cette grille, des lapins (toi ou un adversaire) et des carottes{nbsp}:
 [source,java]
 ----
 int monX = monLapin.coord.x; // <1>
@@ -30,7 +30,7 @@ Coord coord = carotte.coord; // <3>
 
 L'objectif est d'amener le lapin sur les carottes.
 
-Pour celà, tu vas programmer l'intelligence de ton lapin:
+Pour celà, tu vas programmer l'intelligence de ton lapin{nbsp}:
 [source,java]
 ----
 public class RogerJoueur implements Joueur {
@@ -40,16 +40,16 @@ public class RogerJoueur implements Joueur {
 }
 ----
 
-De temps en temps, le moteur du jeu vient demander au lapin ce qu'il souhaite faire:
+De temps en temps, le moteur du jeu vient demander au lapin ce qu'il souhaite faire{nbsp}:
 
-- En paramètre:
+- En paramètre{nbsp}:
     * `monLapin` contient les coordonnées de ton lapin
     * `grille` contient toutes les informations sur le plateau de jeu: position des carottes, position des lapins...
-- En retour, `Action` contiendra l'action à effectuer. Par exemple:
+- En retour, `Action` contiendra l'action à effectuer. Par exemple{nbsp}:
     * `seReposer` pour ne rien faire
     * `avancer().enHaut()` pour se déplacer dans la case du dessus
 
-Prenons un exemple:
+Prenons un exemple{nbsp}:
 
 [source,java]
 ----
@@ -69,7 +69,7 @@ if (carotte == null) {                            // <2>
 <3> Tester si la carotte est à droite du lapin
 <4> Si oui, déplacer le lapin d'une case à droite
 
-Les premières règles du jeu:
+Les premières règles du jeu{nbsp}:
 
 - Un lapin ne peut pas quitter la grille
 - Un lapin ne peut pas se trouver dans la même case qu'un autre lapin
@@ -81,36 +81,36 @@ Fait de même pour les autres cas: dirige ton lapin vers la carotte si elle est 
 <<<
 == Exercice 2: Les autres lapins
 
-L'objectif est de tirer partie de deux autres actions possibles. Le lapin peut:
+L'objectif est de tirer parti des autres actions possibles, le lapin peut{nbsp}:
 
-- *Frapper* un autre lapin, le lapin assommé doit se reposer pendant 3 tours.
-  Pour frapper un lapin, il doit être dans une cellule il doit être dans un cellule voisine.
+- *Frapper* un autre lapin : le lapin assommé doit se reposer pendant 3 tours.
+  Pour frapper un lapin, il doit être dans un cellule voisine.
 [source,java]
 ----
 return frapper().enHaut();
 ----
-- *Sauter* par dessus un autre lapin, pour passer devant, et avancer ainsi de 2 cases au lieu d'une seule.
+- *Sauter* par dessus un autre lapin : pour passer devant, et avancer ainsi de 2 cases au lieu d'une seule.
 [source,java]
 ----
 return sauter().aGauche();
 ----
 
-Les règles du jeu supplémentaires:
+Les règles du jeu supplémentaires{nbsp}:
 
 - Ton lapin ne peut frapper ou sauter par dessus un autre lapin uniquement si celui-ci se trouve dans une case à côté
 - Un lapin assommé ne joue pas pendant 3 tours.
 
-Pour trouver le lapin le plus proche, c'est comme pour les carottes:
+Pour trouver le lapin le plus proche, c'est comme pour les carottes{nbsp}:
 [source,java]
 ----
 Lapin autreLapin = grille.lapinProche(monLapin);
 ----
-Pour savoir à quelle distance il est de `monLapin`
+Pour savoir à quelle distance il est de `monLapin`{nbsp}:
 [source,java]
 ----
 int distance = monLapin.distance(autreLapin);
 ----
-Pour savoir dans quelle direction il est de `monLapin`, et lui sauter par dessus:
+Pour savoir dans quelle direction il est de `monLapin`, et lui sauter par dessus{nbsp}:
 [source,java]
 ----
 Direction direction = monLapin.directionVers(autreLapin);
@@ -118,7 +118,7 @@ return sauter().vers(direction);
 ----
 `direction` peut prendre les valeurs `HAUT`, `BAS`, `GAUCHeE`, `DROITE`
 
-Pour savoir, s'il y a un autre lapin à droite:
+Pour savoir, s'il y a un autre lapin à droite{nbsp}:
 [source,java]
 ----
 Coord coordDroite = monLapin.coordVers(Direction.DROITE);
@@ -136,21 +136,21 @@ l'action (avancer, frapper, sauter) en fonction de la situation (positions des c
 On introduit un nouvel élément sur le plateau de jeu: les rochers.
 L'objectif est d'essayer d'éviter les rochers, de les contourner...
 
-Pour savoir, s'il y a un rocher en haut:
+Pour savoir, s'il y a un rocher en haut{nbsp}:
 [source,java]
 ----
 Coord coordHaut = monLapin.coordVers(Direction.HAUT);
 if (grille.contientRocher(coordDroite)) { ... }
 ----
 
-Pour savoir, s'il y a un obstacle (rocher, lapin ou bordure du terrain) à gauche:
+Pour savoir, s'il y a un obstacle (rocher, lapin ou bordure du terrain) à gauche{nbsp}:
 [source,java]
 ----
 Coord coordGauche = monLapin.coordVers(Direction.GAUCHE);
 if (grille.contientObstacle(coordDroite)) { ... }
 ----
 
-Les règles du jeu supplémentaires:
+Les règles du jeu supplémentaires{nbsp}:
 
 - Un lapin ne peut pas aller sur une case dans laquelle il y a un rocher
 - Un lapin ne peut pas sauter par dessus un rocher
@@ -163,24 +163,23 @@ Essaye de tenir compte des rochers dans tes déplacements, essaye de les éviter
 
 image::images/grille_exercice_4.png[Grille,640,640]
 
-Dans la grille ci-dessus:
+Dans la grille ci-dessus{nbsp}:
 
-. Si un lapin est dans la case A, combien de pas doit-il faire pour arriver jusqu'à la carotte?
+. Si un lapin est dans la case A, combien de pas doit-il faire pour arriver jusqu'à la carotte{nbsp}?
   Ecrire le résultat dans la case A.
-. Si un lapin est dans la case B, quel est le plus court chemin qui mène à la carotte?
+. Si un lapin est dans la case B, quel est le plus court chemin qui mène à la carotte{nbsp}?
   - Ecrire le nombre de pas qu'il doit faire dans dans la case B.
-  - Y a-t-il qu'un seul chemin pour aller de la case B à la carotte?
-  - Tous les chemins ont-ils la même longueur?
-. Même question pour les cases C et D, inscrire le nombre de pas dans la case correspondante.
-. Quelles sont les cases à une distance de 1 pas de la carotte? De 2 pas? De 3 pas?
-. Comment faire pour remplir rapidement toutes les cases de la grille avec la distance pour aller jusqu'à la carotte?
-. Remplir les cases qui entourent (haut, bas, gauche, droite) les cases A/B/C/D avec la distance depuis cette case voisine jusqu'à la carotte
-. Comment faire pour savoir dans quelle direction doit aller un lapin pour rejoindre au plus vite une carotte?
+  - N'y a-t-il qu'un seul chemin pour aller de la case B à la carotte{nbsp}?
+  - Tous les chemins ont-ils la même longueur{nbsp}?
+. Même question pour les cases C et D : inscrire le nombre de pas dans la case correspondante.
+. Quelles sont les cases à une distance de 1 pas de la carotte ? De 2 pas ? De 3 pas{nbsp}?
+. Comment faire pour remplir rapidement toutes les cases de la grille avec la distance pour aller jusqu'à la carotte{nbsp}?
+. Remplir les cases qui entourent (haut, bas, gauche, droite) les cases A/B/C/D avec la distance depuis cette case voisine jusqu'à la carotte.
+. Comment faire pour savoir dans quelle direction doit aller un lapin pour rejoindre au plus vite une carotte{nbsp}?
 
-<<<
 == Exercice 5: Le distancier
 
-L'objectif est d'utiliser l'algorithme imaginé à l'étape précédente pour faciliter le contournement des rochers:
+L'objectif est d'utiliser l'algorithme imaginé à l'étape précédente pour faciliter le contournement des rochers{nbsp}:
 
 [source,java]
 ----
