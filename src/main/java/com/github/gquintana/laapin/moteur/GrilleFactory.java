@@ -81,7 +81,7 @@ class GrilleFactory {
         String ligne;
         int y = 0;
         List<Lutin> lutins = new ArrayList<>();
-        int indexLapin = 0;
+        List<Coord> coordLapins = new ArrayList<>();
         while ((ligne = reader.readLine()) != null && y < taille.y) {
             for (int x = 0; x < taille.x && x < ligne.length(); x++) {
                 char c = Character.toUpperCase(ligne.charAt(x));
@@ -95,7 +95,7 @@ class GrilleFactory {
                         lutin = creerRocher(coord, 0);
                         break;
                     case 'L':
-                        lutin = creerLapin(coord, indexLapin++);
+                        coordLapins.add(coord);
                         break;
                 }
                 if (lutin != null) {
@@ -104,6 +104,15 @@ class GrilleFactory {
                 }
             }
             y++;
+        }
+        int indexLapin = 0;
+        Collections.shuffle(coordLapins, random);
+        for(Coord coord : coordLapins) {
+            Lapin lapin = creerLapin(coord, indexLapin++);
+            if (lapin != null) {
+                lutins.add(lapin);
+                coordUtilisees.add(coord);
+            }
         }
         return lutins;
     }
@@ -154,7 +163,7 @@ class GrilleFactory {
                 String scriptConfig = prefixConfig + ".script";
                 String nomScript = configuration.getString(scriptConfig);
                 if (nomScript == null) {
-                    throw new IllegalArgumentException("Configuration "+scriptConfig + " manquante");
+                    return null;
                 }
                 joueur = new ScriptJoueur(nomScript);
             } else {

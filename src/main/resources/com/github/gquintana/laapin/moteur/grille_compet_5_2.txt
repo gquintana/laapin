@@ -1,0 +1,18 @@
+L-L--------------L-L
+|                  |
+RRRRRRRRR  RRRRRRRRR
+C                  C
+|                  |
+R RRRRRRRRRRRRRRRR R
+C R              R C
+| R   R  CC  R   R |
+|     R CCCC R     |
+| R   R  CC  R   R |
+C R              R C
+R RRRRRRRRRRRRRRRR R
+|                  |
+C                  C
+RRRRRRRRR  RRRRRRRRR
+|                  |
+|                  |
+L-L--------------L-L
