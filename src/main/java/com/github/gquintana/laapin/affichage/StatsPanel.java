@@ -8,15 +8,21 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Callback;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
 public class StatsPanel extends VBox {
+    private static final Insets INSETS = new Insets(1D, 1D, 1D, 1D);
     private ObservableList<Lapin> lapinsList = FXCollections.observableArrayList();
     private ObservableList<ResultatAction> actionsList = FXCollections.observableArrayList();
     private final TableView<ResultatAction> actionsTable;
@@ -25,10 +31,47 @@ public class StatsPanel extends VBox {
     public StatsPanel() {
         lapinsTable = new TableView<>(lapinsList);
         lapinsTable.getColumns().add(tableColumn("Lapin", "nom", String.class));
+        TableColumn<Lapin, Color> colorColumn = tableColumn("C", "couleur", Color.class);
+        colorColumn.setMaxWidth(32D);
+        colorColumn.setCellFactory(new Callback<TableColumn<Lapin, Color>, TableCell<Lapin, Color>>() {
+            @Override
+            public TableCell<Lapin, Color> call(TableColumn<Lapin, Color> column) {
+                return new TableCell<Lapin, Color>(){
+                    @Override
+                    protected void updateItem(Color couleur, boolean empty) {
+                        setText("");
+                        if (couleur != null) {
+                            setBackground(new Background(new BackgroundFill(couleur, null, INSETS)));
+                        }
+                    }
+                };
+            }
+        });
+        lapinsTable.getColumns().add(colorColumn);
         lapinsTable.getColumns().add(tableColumn("Score", "score", Integer.class));
+        lapinsTable.getColumns().add(tableColumn("Energie", "energie", Integer.class));
 
         actionsTable = new TableView<>(actionsList);
-        actionsTable.getColumns().add(tableColumn("Lapin", "lapin.nom", String.class));
+        TableColumn<ResultatAction, Lapin> lapinColumn = tableColumn("Lapin", "lapin", Lapin.class);
+        lapinColumn.setCellFactory(new Callback<TableColumn<ResultatAction, Lapin>, TableCell<ResultatAction, Lapin>>() {
+            @Override
+            public TableCell<ResultatAction, Lapin> call(TableColumn<ResultatAction, Lapin> param) {
+                return new TableCell<ResultatAction, Lapin>() {
+                    @Override
+                    protected void updateItem(Lapin item, boolean empty) {
+                        if (item == null) {
+                            super.updateItem(item, empty);
+                        } else {
+                            if (item.couleur != null) {
+                                setTextFill(item.couleur);
+                            }
+                            setText(item.nom);
+                        }
+                    }
+                };
+            }
+        });
+        actionsTable.getColumns().add(lapinColumn);
         actionsTable.getColumns().add(tableColumn("Action", "action.type", TypeAction.class));
         actionsTable.getColumns().add(tableColumn("Direction", "action.direction", Direction.class));
         actionsTable.getColumns().add(tableColumn("Message", "message", String.class));
@@ -50,6 +93,7 @@ public class StatsPanel extends VBox {
         tableColumn.setCellValueFactory(new FieldValueFactory<>(champ, type));
         return tableColumn;
     }
+
     private static class FieldValueFactory<S, T> implements Callback<TableColumn.CellDataFeatures<S,T>, ObservableValue<T>> {
         private final String[] fieldPath;
         private final Class<T> fieldType;
