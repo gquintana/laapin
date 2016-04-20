@@ -11,7 +11,7 @@
             <includes>
                 <include>src/main/java/com/github/mixteen/laapin/joueur/Exercice1Joueur.java</include>
                 <include>src/main/resources/com/github/mixteen/laapin/joueur/Exercice1Joueur.*</include>
-                <include>src/main/resources/laapin_.properties</include>
+                <include>src/main/resources/laapin_*.properties</include>
             </includes>
         </fileSet>
     </fileSets>
