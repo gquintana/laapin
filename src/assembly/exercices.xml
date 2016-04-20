@@ -1,0 +1,32 @@
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.3 http://maven.apache.org/xsd/assembly-1.1.3.xsd">
+    <id>exercices</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>${basedir}</directory>
+            <includes>
+                <include>src/main/java/com/github/gquintana/laapin/joueur/Exercice1Joueur.java</include>
+                <include>src/main/resources/com/github/gquintana/laapin/joueur/Exercice1Joueur.*</include>
+                <include>src/main/resources/laapin_.properties</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <files>
+        <file>
+            <source>${basedir}/target/generated-docs/exercices.pdf</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+    </files>
+    <dependencySets>
+        <dependencySet>
+            <includes>
+                <include>com.github.gquintana.laapin:laapin:*</include>
+            </includes>
+            <outputDirectory>/lib</outputDirectory>
+        </dependencySet>
+    </dependencySets>
+</assembly>
