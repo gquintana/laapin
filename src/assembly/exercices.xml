@@ -9,8 +9,8 @@
         <fileSet>
             <directory>${basedir}</directory>
             <includes>
-                <include>src/main/java/com/github/gquintana/laapin/joueur/Exercice1Joueur.java</include>
-                <include>src/main/resources/com/github/gquintana/laapin/joueur/Exercice1Joueur.*</include>
+                <include>src/main/java/com/github/mixteen/laapin/joueur/Exercice1Joueur.java</include>
+                <include>src/main/resources/com/github/mixteen/laapin/joueur/Exercice1Joueur.*</include>
                 <include>src/main/resources/laapin_.properties</include>
             </includes>
         </fileSet>
@@ -24,7 +24,7 @@
     <dependencySets>
         <dependencySet>
             <includes>
-                <include>com.github.gquintana.laapin:laapin:*</include>
+                <include>com.github.mixteen.laapin:laapin:*</include>
             </includes>
             <outputDirectory>/lib</outputDirectory>
         </dependencySet>

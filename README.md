@@ -19,14 +19,14 @@ carottes=10
 # Nombre de lapins
 lapins=2
 # Implémentation du joueur 1
-lapin.0.class=com.github.gquintana.laapin.joueur.Bob
+lapin.0.class=com.github.mixteen.laapin.joueur.Bob
 # Nom du joueur 1
 lapin.0.nom=Bob
 # Couleur du joueur 1
 lapin.0.couleur=RED
 
 # Implémentation du joueur 2
-lapin.1.class=com.github.gquintana.laapin.joueur.Bill
+lapin.1.class=com.github.mixteen.laapin.joueur.Bill
 # Nom du joueur 2
 lapin.1.nom=Bill
 # Couleur du joueur 2
