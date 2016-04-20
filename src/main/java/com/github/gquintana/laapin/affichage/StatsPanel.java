@@ -60,6 +60,7 @@ public class StatsPanel extends VBox {
                     @Override
                     protected void updateItem(Lapin item, boolean empty) {
                         if (item == null) {
+                            setText(null);
                             super.updateItem(item, empty);
                         } else {
                             if (item.couleur != null) {
@@ -86,6 +87,10 @@ public class StatsPanel extends VBox {
     public void addAction(ResultatAction resultatAction) {
         actionsList.add(resultatAction);
         actionsTable.scrollTo(actionsList.size() - 1);
+    }
+
+    public void clearActions() {
+        actionsList.clear();
     }
 
     private static <S, T> TableColumn<S, T> tableColumn(String titre, String champ, Class<T> type) {

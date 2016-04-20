@@ -53,7 +53,7 @@ public class Moteur {
     }
 
     public void demarrer() {
-        scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(this::avance, 0, configuration.getInt("moteur.periode", 2000), TimeUnit.MILLISECONDS);
+        scheduledFuture = scheduledExecutorService.scheduleAtFixedRate(this::avancer, 0, configuration.getInt("moteur.periode", 2000), TimeUnit.MILLISECONDS);
         if (grille.lapins().isEmpty()) {
             listener.onArreter(grille);
         } else {
@@ -70,7 +70,7 @@ public class Moteur {
         lapinIterator = lapinList.iterator();
     }
 
-    public void avance() {
+    public void avancer() {
         if (lapinIterator == null || !lapinIterator.hasNext()) {
             initLapinIterator();
         }

@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class GrillePanel extends Group {
     private final int resolution;
-    private final Grille grille;
+    private Grille grille;
     private final Canvas canvas;
     private final Image imageFond;
     public final Image imageLapin;
@@ -36,13 +36,12 @@ public class GrillePanel extends Group {
     private final boolean distancier;
 
 
-    public GrillePanel(Grille grille, Configuration configuration) throws IOException {
-        this.grille = grille;
+    public GrillePanel(Configuration configuration) throws IOException {
         this.resolution = configuration.getInt("grille.resolution", 64);
         this.coordonnees = configuration.getBoolean("grille.coordonnees", false);
         this.distancier = configuration.getBoolean("grille.distancier", false);
-        int width = grille.taille.x * resolution;
-        int height = grille.taille.y * resolution;
+        int width = configuration.getInt("grille.taille.x", 10) * resolution;
+        int height = configuration.getInt("grille.taille.y", 10) * resolution;
         canvas = new Canvas(width, height);
         getChildren().add(canvas);
         imageFond = loadImage("fond");
@@ -58,6 +57,9 @@ public class GrillePanel extends Group {
     }
 
     public void repaint() {
+        if (grille == null) {
+            return;
+        }
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         gc.setStroke(Color.BLACK);
@@ -125,4 +127,7 @@ public class GrillePanel extends Group {
         }
     }
 
+    public void setGrille(Grille grille) {
+        this.grille = grille;
+    }
 }
