@@ -108,7 +108,7 @@ public class Moteur {
         leLapin.agir(action);
         listener.onAgir(grille, leLapin, resultatAction);
         if (!grille.lutinStream(Carotte.class).findAny().isPresent()) {
-            arreter();
+            stopper();
             listener.onArreter(grille);
         }
         return resultatAction;
@@ -119,13 +119,13 @@ public class Moteur {
             scheduledFuture.cancel(false);
         }
         estEnMarche = false;
+        grille.lutinStream(Lapin.class).sorted(Comparator.comparingInt(Lapin::score).reversed())
+                .forEach(l -> System.out.println(l + " " + l.score()));
     }
 
     public void arreter() {
         stopper();
         scheduledExecutorService.shutdown();
-        grille.lutinStream(Lapin.class).sorted(Comparator.comparingInt(Lapin::score).reversed())
-                .forEach(l -> System.out.println(l + " " + l.score()));
     }
 
 }
