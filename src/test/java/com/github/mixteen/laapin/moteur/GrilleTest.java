@@ -16,10 +16,11 @@ public class GrilleTest {
                     Lutins.carotte(0, 0), Lutins.carotte(3, 2)));
 
     @Test
-    public void testContient() {
-        assertTrue(grille.contient(new Coord(1, 1)));
-        assertFalse(grille.contient(new Coord(5, 2)));
-        assertFalse(grille.contient(new Coord(2, -1)));
+    public void testContientObstacle() {
+        assertFalse(grille.contientObstacle(new Coord(1, 1)));
+        assertTrue(grille.contientObstacle(new Coord(5, 2)));
+        assertTrue(grille.contientObstacle(new Coord(2, -1)));
+        assertTrue(grille.contientObstacle(new Coord(2, 3)));
     }
 
     @Test

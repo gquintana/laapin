@@ -12,16 +12,12 @@ public class SauterActionImpl implements ActionImpl {
         if (lapinCible == null) {
             return new ResultatAction(lapin, action, "???");
         }
-        if (!grille.contient(coordCible2)) {
+        if (grille.contientObstacle(coordCible2)) {
             return new ResultatAction(lapin, action, "Pas par là");
         }
-        Carotte carotte = grille.getCarotte(coordCible2);
-        lapin.coord = coordCible2;
-        if (carotte == null) {
-            return new ResultatAction(lapin, action, "Et hop");
-        } else {
-            lapin.manger(carotte);
-            return new ResultatAction(lapin, action, "Miam");
-        }
+        lapin.setCoord(coordCible2);
+        ResultatAction resultatAction = AvancerActionImpl.manger(lapin, grille, action, coordCible2);
+        if (resultatAction!= null) return resultatAction;
+        return new ResultatAction(lapin, action, "Et hop");
     }
 }

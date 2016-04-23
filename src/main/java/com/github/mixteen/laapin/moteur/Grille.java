@@ -16,10 +16,16 @@ public class Grille {
         this.lutins = new ArrayList<>(lutins);
     }
 
-    public boolean contient(Coord coord) {
+    private boolean contient(Coord coord) {
         return coord.x >= 0 && coord.y >= 0 && coord.x < taille.x && coord.y < taille.y;
     }
-     <L extends Lutin> Stream<L> lutinStream(Class<L> lutinClass) {
+
+    public boolean contientObstacle(Coord coord) {
+        return !contient(coord) ||
+                lutins.stream().filter(l -> l.coord.equals(coord) && (l instanceof Lapin || l instanceof Rocher)).findAny().isPresent();
+    }
+
+    <L extends Lutin> Stream<L> lutinStream(Class<L> lutinClass) {
         return lutins.stream().filter(lutinClass::isInstance).map(lutinClass::cast);
     }
 

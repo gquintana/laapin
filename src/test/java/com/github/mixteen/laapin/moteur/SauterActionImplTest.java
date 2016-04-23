@@ -76,4 +76,31 @@ public class SauterActionImplTest {
         assertThat(lapin.coord.x, is(4));
         assertThat(lapin.coord.y, is(3));
     }
+
+    @Test
+    public void testExecuter_AutreLapinAutreLapin() throws Exception {
+        // Given
+        Lapin lapin = Lutins.lapin("Test", 2, 2);
+        Lapin mechant = Lutins.lapin("Méchant", 1, 2);
+        Lapin mechant2 = Lutins.lapin("Méchant cible", 0, 2);
+        Grille grille = new Grille(new Coord(5, 5), asList(lapin, mechant, mechant2));
+        // When
+        commande.executer(lapin, grille, new Action(TypeAction.SAUTER, Direction.GAUCHE));
+        // Then
+        assertThat(lapin.coord.x, is(2));
+        assertThat(lapin.coord.y, is(2));
+    }
+    @Test
+    public void testExecuter_AutreLapinCarotte() throws Exception {
+        // Given
+        Lapin lapin = Lutins.lapin("Test", 2, 2);
+        Lapin mechant = Lutins.lapin("Méchant", 1, 2);
+        Carotte carotte = Lutins.carotte(0, 2);
+        Grille grille = new Grille(new Coord(5, 5), asList(lapin, mechant, carotte));
+        // When
+        commande.executer(lapin, grille, new Action(TypeAction.SAUTER, Direction.GAUCHE));
+        // Then
+        assertThat(lapin.coord.x, is(0));
+        assertThat(lapin.coord.y, is(2));
+    }
 }

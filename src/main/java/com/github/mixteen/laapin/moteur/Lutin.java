@@ -6,9 +6,17 @@ import java.util.Objects;
 
 public abstract class Lutin {
 
-    public Coord coord;
+    protected Coord coord;
 
     protected Lutin(Coord coord) {
+        this.coord = coord;
+    }
+
+    public Coord getCoord() {
+        return coord;
+    }
+
+    public void setCoord(Coord coord) {
         this.coord = coord;
     }
 

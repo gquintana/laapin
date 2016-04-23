@@ -68,7 +68,7 @@ public class GrillePanel extends Group {
         if (distancier) {
             Carotte carotte = (Carotte) grille.lutins.stream().filter(l -> l instanceof Carotte).findAny().orElse(null);
             if (carotte != null) {
-                leDistancier = grille.photographier().distancierVers(carotte.coord);
+                leDistancier = grille.photographier().distancierVers(carotte.getCoord());
                 distanceMax = (double) leDistancier.distanceMax();
             }
         }
@@ -102,8 +102,8 @@ public class GrillePanel extends Group {
                 paintLutin(gc, lutin, imageRocher);
             } else if (lutin instanceof Lapin) {
                 Lapin lapin = (Lapin) lutin;
-                double x0 = coordX(lapin.coord.x);
-                double y0 = coordY(lapin.coord.y);
+                double x0 = coordX(lapin.getCoord().x);
+                double y0 = coordY(lapin.getCoord().y);
                 gc.setStroke(lapin.couleur);
                 gc.strokeOval(x0, y0, resolution, resolution);
                 paintLutin(gc, lutin, imageLapin);
@@ -123,7 +123,7 @@ public class GrillePanel extends Group {
 
     private void paintLutin(GraphicsContext gc, Lutin lutin, Image image) {
         if (image != null) {
-            gc.drawImage(image, coordX(lutin.coord.x), coordY(lutin.coord.y), resolution, resolution);
+            gc.drawImage(image, coordX(lutin.getCoord().x), coordY(lutin.getCoord().y), resolution, resolution);
         }
     }
 
